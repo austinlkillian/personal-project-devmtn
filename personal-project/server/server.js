@@ -12,7 +12,8 @@ const app = express();
 
 let {
     SERVER_PORT,
-    CONNECTION_STRING
+    CONNECTION_STRING,
+    SESSION_SECRET
 } = process.env;
 
 //Sets up database
@@ -22,7 +23,7 @@ massive(CONNECTION_STRING).then(db => {
 
 //Sets up your session capability
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: true
 }))
@@ -37,7 +38,7 @@ app.use(bodyParser.json());
 
 // app.get('/user_posts/:user_id', controllers.get_user_posts);
 
-// app.post('/new_user', controllers.create_user);
+app.post('/new_user', controllers.create_user);
 
 // app.get('/login', controllers.login);
 

@@ -14,21 +14,36 @@ module.exports = {
     //             console.log(err)
     //         } );
     // },
-    // login: (req, res) => {
-    //     const dbInstance = req.app.get('db');
-    //     const {username, password} = req.query;
+    create_user: (req, res) => {
+        const dbInstance = req.app.get('db');
+        const {username, password} = req.body;
 
-    //     dbInstance.get_user([username, password])
-    //         .then(user => {
-    //             req.session.userid = user[0].id
-    //             console.log(req.session.userid)
-    //             res.status(200).send(user);
-    //         })
-    //         .catch(err => {
-    //             res.status(500).send({errorMessage: "Oops! Something went wrong"});
-    //             console.log(err)
-    //         });
-    // },
+        dbInstance.create_user([username, password])
+            .then(createdUser => {
+                req.session.userid = createdUser[0].id
+                console.log(req.session.userid)
+                res.status(200).send(createdUser);
+            })
+            .catch(err => {
+                res.status(500).send({errorMessage: "Oops! Something went wrong"});
+                console.log(err)
+            });
+    },
+    login: (req, res) => {
+        const dbInstance = req.app.get('db');
+        const {username, password} = req.body;
+
+        dbInstance.get_user([username, password])
+            .then(user => {
+                req.session.userid = user[0].id
+                console.log(req.session.userid)
+                res.status(200).send(user);
+            })
+            .catch(err => {
+                res.status(500).send({errorMessage: "Oops! Something went wrong"});
+                console.log(err)
+            });
+    },
     // // get_house: (req, res) => {
     // //     const dbInstance = req.app.get('db');
     // //     const myId = parseInt(req.params.id);
@@ -43,24 +58,10 @@ module.exports = {
     // //             console.log(err)
     // //         } );
     // // },
-    // create_user: (req, res) => {
-    //     const dbInstance = req.app.get('db');
-    //     const {username, password} = req.body;
-
-    //     dbInstance.create_user([username, password])
-    //         .then(createdUser => {
-    //             req.session.userid = createdUser[0].id
-    //             console.log(req.session.userid)
-    //             res.status(200).send(createdUser);
-    //         })
-    //         .catch(err => {
-    //             res.status(500).send({errorMessage: "Oops! Something went wrong"});
-    //             console.log(err)
-    //         });
-    // },
-    // logout: (req, res, next) => {
-    //     req.session.destroy();
-    //     res.status(200).send(req.session);
-    // }
+    
+    logout: (req, res, next) => {
+        req.session.destroy();
+        res.status(200).send(req.session);
+    }
 
 }
