@@ -36,6 +36,7 @@ module.exports = {
         dbInstance.get_user([username, password])
             .then(user => {
                 req.session.userid = user[0].id
+                console.log(req.session)
                 res.status(200).send(user);
             })
             .catch(err => {
@@ -63,6 +64,32 @@ module.exports = {
         console.log(req.session)
         console.log('You successfully logged out!')
         res.status(200).send(req.session);
-    }
+    },
+    create_unicorn: (req, res) => {
+        const dbInstance = req.app.get('db');
+        const {name, file_name, user_id} = req.body;
 
+        dbInstance.create_unicorn([name, file_name, user_id])
+            .then(createdUnicorn => {
+                res.status(200).send(createdUnicorn);
+            })
+            .catch(err => {
+                res.status(500).send({errorMessage: "Oops! Something went wrong"});
+                console.log(err)
+            });
+    },
+    current_user: (req, res) => {
+            const dbInstance = req.app.get('db');
+            const userId = req.session.userid;
+            console.log(userId)
+            dbInstance.current_user([userId])
+                .then( user => {
+                    console.log(user)
+                    res.status(200).send( user )
+                })
+                .catch( err => {
+                    res.status(500).send({errorMessage: "Oops! Something went wrong. Our engineers have been informed!"});
+                    console.log(err)
+                } );
+        }
 }

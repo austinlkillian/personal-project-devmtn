@@ -38,11 +38,17 @@ app.use(bodyParser.json());
 
 // app.get('/user_posts/:user_id', controllers.get_user_posts);
 
+//Auth routes
 app.post('/new_user', controllers.create_user);
 
 app.post('/login', controllers.login);
 
 app.get('/logout', controllers.logout);
+
+app.get('/current_user', controllers.current_user);
+
+//Unicorn CRUD
+app.post('/new_unicorn', controllers.create_unicorn)
 
 
 

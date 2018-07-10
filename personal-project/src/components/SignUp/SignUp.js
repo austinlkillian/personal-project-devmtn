@@ -23,11 +23,11 @@ class SignUp extends Component {
                     username: '',
                     password: ''
                 })
+                this.props.history.push("/pick_unicorn")
             })
             .catch(err => {
                 console.log(err)
             });
-        this.props.history.push("/pick_unicorn")
     }
 
     render(){

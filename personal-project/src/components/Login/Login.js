@@ -23,12 +23,11 @@ class Login extends Component {
                     username: '',
                     password: ''
                 })
-                //this.history.push('/dashboard')
+                this.props.history.push('/pick_unicorn');
             })
             .catch(err => {
                 console.log(err)
             });
-        this.props.history.push('/pick_unicorn');
     }
 
 
