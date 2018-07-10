@@ -6,7 +6,7 @@ class GamePlayScreen extends Component {
     render(){
         return (
             <div>
-                <Nav />
+                <Nav {...this.props} />
                 <GameCanvas />
             </div>
         )

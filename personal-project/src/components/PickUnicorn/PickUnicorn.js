@@ -8,7 +8,7 @@ class PickUnicorn extends Component{
     render(){
         return (
             <div>
-                <Nav />
+                <Nav {...this.props} />
                 <h1>Choose Your Unicorn!</h1>
                 <ListUnicorn {...this.props}/>
                 <Link to="/create_unicorn">Create New Unicorn</Link>

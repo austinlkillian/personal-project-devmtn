@@ -40,9 +40,9 @@ app.use(bodyParser.json());
 
 app.post('/new_user', controllers.create_user);
 
-// app.get('/login', controllers.login);
+app.post('/login', controllers.login);
 
-// app.post('/logout', controllers.logout);
+app.get('/logout', controllers.logout);
 
 
 

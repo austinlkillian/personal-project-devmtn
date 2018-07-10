@@ -8,7 +8,7 @@ class CreateUnicorn extends Component{
     render(){
         return (
             <div>
-                <Nav />
+                <Nav {...this.props} />
                 <h1>Create Your Unicorn!</h1>
                 <button onClick={this.newUnicorn}>Save</button>
             </div>

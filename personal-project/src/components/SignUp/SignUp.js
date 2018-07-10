@@ -34,7 +34,7 @@ class SignUp extends Component {
         console.log(this.state.username, this.state.password)
         return (
             <div>
-                <Nav />
+                <Nav {...this.props} />
                 <h1>Sign Up</h1>
                 <input type="text" onChange={(e) => {this.setState({username: e.target.value})}} placeholder="Username" value={this.state.username}/>
                 <input type="text" onChange={(e) => {this.setState({password: e.target.value})}} placeholder="Password" value={this.state.password}/>
