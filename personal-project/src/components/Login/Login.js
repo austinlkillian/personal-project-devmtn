@@ -1,5 +1,6 @@
 import React, {Component } from 'react';
 import axios from 'axios';
+import Nav from '../Nav/Nav'
 //import {connect} from 'react-redux'
 //import {gatherUserId} from '../../ducks/reducer'
 
@@ -29,21 +30,22 @@ class Login extends Component {
     // }
 
     login =() => {
-        let {username, password} = this.state;
-        axios.get(`/login?username=${username}&password=${password}`)
-            .then(response => {
-                console.log(response)
-                console.log("You logged in!")
-                this.props.gatherUserId(username);
-                this.setState({
-                    username: '',
-                    password: ''
-                })
-                //this.history.push('/dashboard')
-            })
-            .catch(err => {
-                console.log(err)
-            });
+        // let {username, password} = this.state;
+        // axios.get(`/login?username=${username}&password=${password}`)
+        //     .then(response => {
+        //         console.log(response)
+        //         console.log("You logged in!")
+        //         this.props.gatherUserId(username);
+        //         this.setState({
+        //             username: '',
+        //             password: ''
+        //         })
+        //         //this.history.push('/dashboard')
+        //     })
+        //     .catch(err => {
+        //         console.log(err)
+        //     });
+        this.props.history.push('/pick_unicorn');
     }
 
 
@@ -51,11 +53,13 @@ class Login extends Component {
         console.log(this.state.username, this.state.password)
         return (
             <div>
+                <Nav />
                 <h1>Login</h1>
                 {/* <input type="text" onChange={(e) => {this.setState({username: e.target.value})}} placeholder="Username" value={this.state.username}/>
                 <input type="text" onChange={(e) => {this.setState({password: e.target.value})}} placeholder="Password" value={this.state.password}/>
                 <button onClick={this.login}>Login</button>
                 <button onClick={this.newUser}>Register</button> */}
+                <button onClick={this.login}>Submit</button>
             </div>
             
         )

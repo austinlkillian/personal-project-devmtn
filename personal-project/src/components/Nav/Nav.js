@@ -3,18 +3,21 @@ import {Link} from 'react-router-dom'
 //import {connect} from 'react-redux'
 
 function Nav(props) {
+    function logout(){
+        // axios to req.session.destroy()
+        //Use props.history.push to navigate to the home page
+        // .then -> props.history.push('/home');
+    }
 
     // console.log(props)
     // let {username, profile_picture} = props;
     // console.log('navbar ', props)
     return (
         <nav>
-            <h1>Navbar</h1>
-            {/* <img src={profile_picture} alt="Profile Picture"/>
-            <h2>{username}</h2>
-            <Link to="/dashboard">Home</Link>
-            <Link to="/">Logout</Link>
-            <Link to="/new">New Post</Link> */}
+            <Link to="/">Home</Link>
+            {/* Logout link also needs to logout user, not just navigate */}
+            <button onClick={logout}>Logout</button>
+            <Link to="/restart_game">Restart Game</Link>
         </nav>
     )
 }
