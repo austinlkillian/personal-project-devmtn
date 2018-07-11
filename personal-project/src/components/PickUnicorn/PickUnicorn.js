@@ -1,17 +1,58 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 import {Link} from 'react-router-dom';
 import ListUnicorn from '../ListUnicorn/ListUnicorn';
 import Nav from '../Nav/Nav'
 
 
 class PickUnicorn extends Component{
+    constructor(){
+        super();
+        this.state = {
+            currentUser: {},
+            unicornList: []
+        };
+    }
+
+    componentDidMount(){
+        //Gets info for current user
+        axios.get('/current_user')
+            .then(res => {
+             //This object contains all the data for the current user
+                if(res.data[0]){
+                    this.setState({
+                        currentUser: res.data[0]
+                    })
+                }
+            })
+            .catch(err => {console.log(err)})
+        //Pulls unicorn list for this specific user
+        axios.get('/user_unicorns')
+            .then(unicorns => {
+                this.setState({
+                    unicornList: unicorns.data
+                })
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
     render(){
+        console.log(this.state.currentUser, this.state.unicornList)
+        let userUnicorns = this.state.unicornList.map( (unicorn, index) => {
+            let {name, file_name, id} = unicorn
+            return (
+                <ListUnicorn key={index} name={name} file_name={file_name} id={id} {...this.props}/>
+            )
+        });
         return (
             <div>
                 <Nav {...this.props} />
                 <h1>Choose Your Unicorn!</h1>
-                <ListUnicorn {...this.props}/>
                 <Link to="/create_unicorn">Create New Unicorn</Link>
+                <hr/>
+                {userUnicorns}
             </div>
         )
     }

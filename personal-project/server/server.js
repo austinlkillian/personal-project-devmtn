@@ -48,7 +48,21 @@ app.get('/logout', controllers.logout);
 app.get('/current_user', controllers.current_user);
 
 //Unicorn CRUD
+//New Unicorn
 app.post('/new_unicorn', controllers.create_unicorn)
+//Get user's unicorn list
+app.get('/user_unicorns', controllers.get_user_unicorns);
+//Get individual unicorn
+app.get('/select_unicorn/:id' , controllers.get_unicorn)
+//Edit unicorn
+app.put('/edit_unicorn', controllers.edit_unicorn);
+//Delete unicorn
+app.delete('/delete_unicorn/:id', controllers.delete_unicorn);
+
+//Update current game info
+app.put('/edit_user_current_unicorn/:id', controllers.edit_user_current_unicorn);
+
+
 
 
 
