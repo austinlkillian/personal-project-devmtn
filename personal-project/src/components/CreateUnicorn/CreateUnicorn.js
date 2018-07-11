@@ -15,9 +15,11 @@ class CreateUnicorn extends Component{
         axios.get('/current_user')
         .then(res => {
             //This object contains all the data for the current user
-            this.setState({
-                currentUser: res.data[0]
-            })
+            if(res.data[0]){
+                this.setState({
+                    currentUser: res.data[0]
+                })
+            }
         })
         .catch(err => {console.log(err)})
     }
@@ -25,14 +27,9 @@ class CreateUnicorn extends Component{
     newUnicorn = () => {
         axios.post('/new_unicorn', {})
             .then( response => {
-                console.log(response)
                 this.props.history.push('/pick_unicorn')
-            }
-
-                
-            )
+            })
             .catch(err => {console.log(err)})
-        
     }
     render(){
         console.log(this.state.currentUser)
