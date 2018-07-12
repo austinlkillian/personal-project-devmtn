@@ -14,11 +14,11 @@ class GameCanvas extends React.Component {
                 width: 60,
                 height: 60,
                 position: "absolute",
-                top: 300,
+                top: 280,
                 left: 270
             },
             // This is the distance of the top of the unicorn from the bottom of the canvas
-            unicornTop: 300,
+            unicornTop: 280,
             //Unicorn's rignt corner from left side of canvas
             unicornRight:330,
             //Unicorn's left corner from left side of canvas
@@ -29,7 +29,9 @@ class GameCanvas extends React.Component {
             creationTimer: null,
             movementTimer: null,
             leftBtnStyle: {position: "absolute", bottom: 5, left: 260},
-            rightBtnStyle: {position: "absolute", bottom: 5, left:300}
+            rightBtnStyle: {position: "absolute", bottom: 5, left:300},
+            upBtnStyle: {position: "absolute", bottom: 25, left:260},
+            downBtnStyle: {position: "absolute", bottom: 25, left:300}
         }
     }
 
@@ -58,7 +60,7 @@ class GameCanvas extends React.Component {
             unicornFile: this.props.unicornFile,
             unicornId: this.props.unicornId,
             creationTimer: this.creationTimer = setInterval(this.makeBubbles, 2500),
-            movementTimer: this.movementTimer = setInterval(this.moveBubbles, 400)
+            movementTimer: this.movementTimer = setInterval(this.moveBubbles, 300)
        })
      }
 
@@ -76,6 +78,7 @@ class GameCanvas extends React.Component {
 
         const newBubble = {
             index: this.state.bubbles.length,
+            popped: false,
             id: this.state.bubbleId,
             //Bottom edge of bubble
             bubbleBottom: -10,
@@ -99,7 +102,6 @@ class GameCanvas extends React.Component {
         this.setState({
             bubbles: newBubbles
         })
-        // let score = this.state.score
     }
 
     moveBubbles = () => {
@@ -109,36 +111,41 @@ class GameCanvas extends React.Component {
                 top: newBubble.styling.top + 10
             }
             let newObj = Object.assign({}, newBubble.styling, updates);
-            // if(newObj.top === 440) {
-            //     if(this.state.unicornPos === bubble.left) {
-            //         score += 1000
-            //         bubble.top = 'kill me'
-            //     }
-            // }
+
             newBubble.styling = newObj;
             newBubble.bubbleBottom = newBubble.bubbleBottom + 10;
 
             return newBubble
-        })//.filter( bubble => bubble.top != 'kill me' )
+        })
+        let {unicornTop, unicornLeft, unicornRight} = this.state;
+        let newArr = alteredBubbles.map( (bubble, index, arr) => {
+            //Is bubble at unicorn collision height?
+            if(unicornTop===bubble.bubbleBottom){
+                if((bubble.bubbleRight > unicornLeft && !(bubble.bubbleLeft > unicornRight))){
+                     console.log("Pop!")
+                     console.log(bubble.index)
+                     bubble.popped = true;
+                     this.setState({
+                         score: this.state.score + 5
+                     })
+                }
+            }
+            // console.log(`unicornLeft: ${unicornLeft} unicornRight: ${unicornRight} bubbleLeft: ${bubble.bubbleLeft} bubbleRight: ${bubble.bubbleRight}`)
+            return bubble;
+        }).filter(bubble => {
+            return bubble.popped === false;
+        });
+
 
         this.setState({
-            bubbles: alteredBubbles
+            bubbles: newArr
         })
     }
 
     render(){
-        let {unicornTop, unicornLeft, unicornRight} = this.state;
-        let bubbleArr = this.state.bubbles.map( (bub, index) => {
-            //Is bubble at unicorn collision height?
-            if(unicornTop==bub.bubbleBottom){
-                if(){
-                    
-                }
-                //console.log("Pop!")
-            }
-
+        let showBubbles = this.state.bubbles.map((bubble, index) => {
             return (
-                <div key={index} style={bub.styling} className='bubble'>
+                <div key={index} style={bubble.styling} className='bubble'>
 
                 </div>
             )
@@ -169,11 +176,13 @@ class GameCanvas extends React.Component {
             default:
                 chosenImgVar = rainbow;
         }
-
         return(
             <div className='container' style={canvasStyle}>
-                { bubbleArr }
+                <h2>Score: {this.state.score}</h2>
+                { showBubbles }
                 <img id="unicornImage" src={chosenImgVar} alt="" style={this.state.unicornStyle}/>
+                <button onClick={this.moveUp} style={this.state.upBtnStyle}>Up</button>
+                <button onClick={this.moveDown} style={this.state.downBtnStyle}>Down</button>
                 <button onClick={this.moveLeft} style={this.state.leftBtnStyle}>Left</button>
                 <button onClick={this.moveRight} style={this.state.rightBtnStyle}>Right</button>
             </div>
