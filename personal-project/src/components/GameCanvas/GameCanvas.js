@@ -17,8 +17,10 @@ class GameCanvas extends React.Component {
                 top: 280,
                 left: 270
             },
-            // This is the distance of the top of the unicorn from the bottom of the canvas
+            // This is the distance of the top of the unicorn from the top of the canvas
             unicornTop: 280,
+            //Distance of the bottom of the unidorn from the top of the canvas
+            unicornBottom: 340,
             //Unicorn's rignt corner from left side of canvas
             unicornRight:330,
             //Unicorn's left corner from left side of canvas
@@ -52,6 +54,26 @@ class GameCanvas extends React.Component {
             }),
             unicornRight: this.state.unicornRight + 20,
             unicornLeft: this.state.unicornLeft + 20
+        })
+    }
+
+    moveUp = () => {
+        this.setState({
+            unicornStyle: Object.assign({}, this.state.unicornStyle, {
+                top: this.state.unicornStyle.top - 20
+            }),
+            unicornTop: this.state.unicornTop - 20,
+            unicornBottom: this.state.unicornBottom - 20
+        })
+    }
+
+    moveDown = () => {
+        this.setState({
+            unicornStyle: Object.assign({}, this.state.unicornStyle, {
+                top: this.state.unicornStyle.top + 20
+            }),
+            unicornTop: this.state.unicornTop + 20,
+            unicornBottom: this.state.unicornBottom + 20
         })
     }
 
@@ -117,10 +139,10 @@ class GameCanvas extends React.Component {
 
             return newBubble
         })
-        let {unicornTop, unicornLeft, unicornRight} = this.state;
+        let {unicornTop, unicornLeft, unicornRight, unicornBottom} = this.state;
         let newArr = alteredBubbles.map( (bubble, index, arr) => {
             //Is bubble at unicorn collision height?
-            if(unicornTop===bubble.bubbleBottom){
+            if(unicornTop===bubble.bubbleBottom || (unicornTop < bubble.bubbleBottom &&bubble.bubbleBottom < (unicornBottom + 40))){
                 if((bubble.bubbleRight > unicornLeft && !(bubble.bubbleLeft > unicornRight))){
                      console.log("Pop!")
                      console.log(bubble.index)
