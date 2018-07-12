@@ -69,7 +69,6 @@ class EditUnicorn extends Component{
     }
 
     render(){
-        console.log(this.state.unicornId)
         let {file_name} = this.state;
         let chosenImgVar;
         let rainbowCheck;

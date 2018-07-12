@@ -7,12 +7,6 @@ import pink from '../../images/pink.png'
 import blue from '../../images/blue.png'
 
 class ListUnicorn extends Component{
-    constructor(){
-        super()
-        this.state = {
-            unicorn: {}
-        }
-    }
 
     startGame = () => {
         let fileName = this.props.file_name || "rainbow"
@@ -24,7 +18,6 @@ class ListUnicorn extends Component{
     }
 
     render(){
-        console.log(this.state.unicorn)
         let {name, file_name, id} = this.props
         let chosenImgVar;
         switch(file_name){

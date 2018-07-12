@@ -17,7 +17,6 @@ class SignUp extends Component {
         let {username, password} = this.state;
         axios.post('/new_user', {username: username, password: password})
             .then(response => {
-                console.log(response)
                 this.setState({
                     username: '',
                     password: ''
@@ -30,7 +29,6 @@ class SignUp extends Component {
     }
 
     render(){
-        console.log(this.state.username, this.state.password)
         return (
             <div>
                 <Nav {...this.props} />

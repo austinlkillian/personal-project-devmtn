@@ -145,7 +145,6 @@ class GameCanvas extends React.Component {
             if(unicornTop===bubble.bubbleBottom || (unicornTop < bubble.bubbleBottom &&bubble.bubbleBottom < (unicornBottom + 40))){
                 if((bubble.bubbleRight > unicornLeft && !(bubble.bubbleLeft > unicornRight))){
                      console.log("Pop!")
-                     console.log(bubble.index)
                      bubble.popped = true;
                      this.setState({
                          score: this.state.score + 5

@@ -39,7 +39,6 @@ class PickUnicorn extends Component{
     }
 
     render(){
-        console.log(this.state.currentUser, this.state.unicornList)
         let userUnicorns = this.state.unicornList.map( (unicorn, index) => {
             let {name, file_name, id} = unicorn
             return (
