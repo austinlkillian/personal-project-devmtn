@@ -38,55 +38,65 @@ class GameCanvas extends React.Component {
     }
 
     moveLeft = () => {
-        this.setState({
-            unicornStyle: Object.assign({}, this.state.unicornStyle, {
-                left: this.state.unicornStyle.left - 20
-            }),
-            unicornRight: this.state.unicornRight - 20,
-            unicornLeft: this.state.unicornLeft - 20
-        })
+        if(this.state.unicornLeft >= 1){
+            this.setState({
+                unicornStyle: Object.assign({}, this.state.unicornStyle, {
+                    left: this.state.unicornStyle.left - 20
+                }),
+                unicornRight: this.state.unicornRight - 20,
+                unicornLeft: this.state.unicornLeft - 20
+            })
+        }
     }
 
     moveRight = () => {
-        this.setState({
-            unicornStyle: Object.assign({}, this.state.unicornStyle, {
-                left: this.state.unicornStyle.left + 20
-            }),
-            unicornRight: this.state.unicornRight + 20,
-            unicornLeft: this.state.unicornLeft + 20
-        })
+        if(this.state.unicornRight <= 600){
+            this.setState({
+                unicornStyle: Object.assign({}, this.state.unicornStyle, {
+                    left: this.state.unicornStyle.left + 20
+                }),
+                unicornRight: this.state.unicornRight + 20,
+                unicornLeft: this.state.unicornLeft + 20
+            })
+        }
     }
 
     moveUp = () => {
-        this.setState({
-            unicornStyle: Object.assign({}, this.state.unicornStyle, {
-                top: this.state.unicornStyle.top - 20
-            }),
-            unicornTop: this.state.unicornTop - 20,
-            unicornBottom: this.state.unicornBottom - 20
-        })
+        if(this.state.unicornTop >= 20){
+            this.setState({
+                unicornStyle: Object.assign({}, this.state.unicornStyle, {
+                    top: this.state.unicornStyle.top - 20
+                }),
+                unicornTop: this.state.unicornTop - 20,
+                unicornBottom: this.state.unicornBottom - 20
+            })
+        }
     }
 
     moveDown = () => {
-        this.setState({
-            unicornStyle: Object.assign({}, this.state.unicornStyle, {
-                top: this.state.unicornStyle.top + 20
-            }),
-            unicornTop: this.state.unicornTop + 20,
-            unicornBottom: this.state.unicornBottom + 20
-        })
+        if(this.state.unicornTop <= 260){
+            this.setState({
+                unicornStyle: Object.assign({}, this.state.unicornStyle, {
+                    top: this.state.unicornStyle.top + 20
+                }),
+                unicornTop: this.state.unicornTop + 20,
+                unicornBottom: this.state.unicornBottom + 20
+            })
+        }
     }
 
     componentDidMount() {
+        document.body.onkeydown = this.onArrowDown
         this.setState({
             unicornFile: this.props.unicornFile,
             unicornId: this.props.unicornId,
             creationTimer: this.creationTimer = setInterval(this.makeBubbles, 2500),
-            movementTimer: this.movementTimer = setInterval(this.moveBubbles, 300)
+            movementTimer: this.movementTimer = setInterval(this.moveBubbles,   110)
        })
      }
 
      componentWillUnmount() {
+         document.body.onkeydown = null
          clearInterval(this.state.creationTimer);
          clearInterval(this.state.movementTimer);
      }
@@ -113,7 +123,7 @@ class GameCanvas extends React.Component {
                 left: column,
                 width: 50,
                 height: 50,
-                backgroundColor: "green",
+                backgroundColor: "aqua",
                 borderRadius: 50
             }
         }
@@ -141,7 +151,7 @@ class GameCanvas extends React.Component {
         })
         let {unicornTop, unicornLeft, unicornRight, unicornBottom} = this.state;
         let newArr = alteredBubbles.map( (bubble, index, arr) => {
-            //Is bubble at unicorn collision height?
+            //Is bubble at unicorn collision height and within the unicorn's width parameters?
             if(unicornTop===bubble.bubbleBottom || (unicornTop < bubble.bubbleBottom &&bubble.bubbleBottom < (unicornBottom + 40))){
                 if((bubble.bubbleRight > unicornLeft && !(bubble.bubbleLeft > unicornRight))){
                      console.log("Pop!")
@@ -150,6 +160,10 @@ class GameCanvas extends React.Component {
                          score: this.state.score + 5
                      })
                 }
+            }
+            //Is bubble off the screen?
+            if(bubble.bubbleBottom > 380){
+                bubble.popped = true;
             }
             // console.log(`unicornLeft: ${unicornLeft} unicornRight: ${unicornRight} bubbleLeft: ${bubble.bubbleLeft} bubbleRight: ${bubble.bubbleRight}`)
             return bubble;
@@ -161,6 +175,24 @@ class GameCanvas extends React.Component {
         this.setState({
             bubbles: newArr
         })
+    }
+
+    onArrowDown = (e) => {
+        //ArrowUp, ArrowDown, ArrowRight, ArrowLeft
+        switch(e.key){
+            case "ArrowUp":
+                this.moveUp();
+                break;
+            case "ArrowDown":
+                this.moveDown();
+                break;
+            case "ArrowRight":
+                this.moveRight();
+                break;
+            case "ArrowLeft":
+                this.moveLeft();
+                break;
+        }
     }
 
     render(){
@@ -198,11 +230,20 @@ class GameCanvas extends React.Component {
                 chosenImgVar = rainbow;
         }
         return(
-            <div className='container' style={canvasStyle}>
+            <div 
+                className='container' 
+                style={canvasStyle} 
+                // onKeyDown={e => this.onArrowDown(e)}
+                //This makes it so you can use the buttons 
+                autoFocus={true}
+            >
                 <h2>Score: {this.state.score}</h2>
                 { showBubbles }
                 <img id="unicornImage" src={chosenImgVar} alt="" style={this.state.unicornStyle}/>
-                <button onClick={this.moveUp} style={this.state.upBtnStyle}>Up</button>
+                <button 
+                    onClick={this.moveUp} 
+                    style={this.state.upBtnStyle}
+                >Up</button>
                 <button onClick={this.moveDown} style={this.state.downBtnStyle}>Down</button>
                 <button onClick={this.moveLeft} style={this.state.leftBtnStyle}>Left</button>
                 <button onClick={this.moveRight} style={this.state.rightBtnStyle}>Right</button>

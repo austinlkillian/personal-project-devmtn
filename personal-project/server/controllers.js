@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt-nodejs');
+
 module.exports = {
     get_user_unicorns: (req, res) => {
         const dbInstance = req.app.get('db');
@@ -17,7 +19,10 @@ module.exports = {
         const dbInstance = req.app.get('db');
         const {username, password} = req.body;
 
-        dbInstance.create_user([username, password])
+        //Encrypting password
+        bcrypt.hash(password, null, null, function(err, hash){
+            //All of this is what was working before I tried using bcrypt, except I swapped out "hash" for "password in the argument array"
+            dbInstance.create_user([username, hash])
             .then(createdUser => {
                 req.session.userid = createdUser[0].id
                 console.log(req.session.userid)
@@ -27,21 +32,38 @@ module.exports = {
                 res.status(500).send({errorMessage: "Oops! Something went wrong"});
                 console.log(err)
             });
+        })
     },
     login: (req, res) => {
         const dbInstance = req.app.get('db');
         const {username, password} = req.body;
-
-        dbInstance.get_user([username, password])
-            .then(user => {
-                req.session.userid = user[0].id
-                console.log(req.session)
-                res.status(200).send(user);
+        //I need to pull this "hash" argument from the database using the username
+        dbInstance.get_password([username])
+            .then( hash => {
+                let myHash = hash[0].password
+                console.log(myHash)
+                bcrypt.compare(password, myHash, function(err, response){
+                    if(response){
+                        dbInstance.get_user([username, myHash])
+                            .then(user => {
+                                req.session.userid = user[0].id
+                                console.log(req.session)
+                                res.status(200).send(user);
+                            })
+                            .catch(err => {
+                                res.status(500).send({errorMessage: "Oops! Something went wrong"});
+                                console.log(err)
+                        });
+                    } else {
+                        console.log("The password thing didn't work")
+                    }
+                })
             })
             .catch(err => {
                 res.status(500).send({errorMessage: "Oops! Something went wrong"});
                 console.log(err)
-            });
+        });
+        
     },
     get_unicorn: (req, res) => {
         const dbInstance = req.app.get('db');
@@ -117,6 +139,19 @@ module.exports = {
                 console.log(err)
             });
     },
+    all_usernames: (req, res) => {
+        const dbInstance = req.app.get('db');
+
+        dbInstance.get_all_usernames()
+            .then(usernames => {
+                console.log(usernames)
+                res.status(200).send(usernames)
+            })
+            .catch(err => {
+                console.log(err)
+                res.status(500).send({errorMessage: "Oops! Something went wrong."})
+            })
+    },
     current_user: (req, res) => {
             const dbInstance = req.app.get('db');
             const userId = req.session.userid;
@@ -130,5 +165,6 @@ module.exports = {
                     res.status(500).send({errorMessage: "Oops! Something went wrong. Our engineers have been informed!"});
                     console.log(err)
                 } );
-        }
+        },
+
 }

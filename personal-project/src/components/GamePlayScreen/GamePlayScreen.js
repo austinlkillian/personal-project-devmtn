@@ -34,7 +34,7 @@ class GamePlayScreen extends Component {
         let unicornFile = this.props.match.params.file_name
         return (
             <div>
-                <Nav {...this.props} />
+                <Nav {...this.props} currentUnicorn={this.state.current_unicorn}/>
                 <GameCanvas unicornFile={unicornFile} />
             </div>
         )

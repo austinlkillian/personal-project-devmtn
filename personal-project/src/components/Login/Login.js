@@ -1,6 +1,7 @@
 import React, {Component } from 'react';
 import axios from 'axios';
 import Nav from '../Nav/Nav'
+
 //import {connect} from 'react-redux'
 //import {gatherUserId} from '../../ducks/reducer'
 
@@ -30,14 +31,19 @@ class Login extends Component {
             });
     }
 
+    onEnter = (e) => {
+        if(e.key==="Enter" && (this.state.username && this.state.password)){
+            this.login()
+        }
+    }
 
     render(){
         return (
-            <div>
+            <div onKeyDown={e => this.onEnter(e)}>
                 <Nav {...this.props} />
                 <h1>Login</h1>
-                <input 
-                    type="text" 
+                <input
+                    type="text"
                     onChange={(e) => {this.setState({username: e.target.value})}} placeholder="Username" 
                     value={this.state.username}/>
 

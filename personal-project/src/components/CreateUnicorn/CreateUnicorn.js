@@ -44,7 +44,7 @@ class CreateUnicorn extends Component{
         })
     }
     render(){
-        console.log(this.state.currentUser, this.state.chosenUnicorn)
+        // console.log(this.state.currentUser, this.state.chosenUnicorn)
         let {file_name} = this.state;
         let chosenImgVar;
         switch(file_name){

@@ -29,8 +29,11 @@ class PickUnicorn extends Component{
         //Pulls unicorn list for this specific user
         axios.get('/user_unicorns')
             .then(unicorns => {
+                let copyArr = this.state.unicornList.map(unicorn => unicorn);
+                copyArr.push(...unicorns.data)
+                let newArr = copyArr.reverse();
                 this.setState({
-                    unicornList: unicorns.data
+                    unicornList: newArr//unicorns.data
                 })
             })
             .catch(err => {

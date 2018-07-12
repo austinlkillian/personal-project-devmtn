@@ -5,6 +5,7 @@ const axios = require('axios');
 const massive = require('massive');
 const controllers = require('./controllers');
 const session = require('express-session');
+const bcrypt = require('bcrypt-nodejs');
 
 
 
@@ -46,6 +47,8 @@ app.post('/login', controllers.login);
 app.get('/logout', controllers.logout);
 
 app.get('/current_user', controllers.current_user);
+
+app.get('/all_usernames', controllers.all_usernames);
 
 //Unicorn CRUD
 //New Unicorn

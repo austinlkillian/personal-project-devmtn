@@ -5,7 +5,7 @@ function HomePage(){
     return (
         <div>
             <h1>Home</h1>
-            <Link to="play_game">Start Playing!</Link>
+            <Link to="play_game/rainbow">Start Playing!</Link>
             <Link to="sign_up">Sign Up</Link>
             <Link to="login">Log In</Link>
         </div>

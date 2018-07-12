@@ -16,12 +16,49 @@ class Nav extends Component {
     // let {username, profile_picture} = props;
     // console.log('navbar ', props)
     render(){
+        let logout;
+        let home;
+        let restart;
+        let newUnicorn;
+        let path = this.props.location.pathname
+        switch(path){
+            case "/sign_up":
+                home = <Link to="/">Home</Link>
+                break;
+            case "/login":
+                home = <Link to="/">Home</Link>
+                break;
+            case "/pick_unicorn":
+                home = <Link to="/">Home</Link>
+                logout = <button onClick={this.logout}>Logout</button>
+                break;
+            case "/create_unicorn":
+                home = <Link to="/">Home</Link>
+                logout = <button onClick={this.logout}>Logout</button>
+                break;
+        }
+        if(path.indexOf("/select") !== -1){
+            home = <Link to="/">Home</Link>
+            logout = <button onClick={this.logout}>Logout</button>
+        }
+        if(path.indexOf("/play") !== -1){
+            home = <Link to="/">Home</Link>
+            if(this.props.currentUnicorn.id){
+                logout = <button onClick={this.logout}>Logout</button>
+                newUnicorn = <Link to="/pick_unicorn">Choose a Different Unicorn</Link>
+                restart = <Link to="/restart_game">Restart Game</Link>
+            }
+        }
         return (
             <nav>
-                <Link to="/">Home</Link>
+                {home}
+                {logout}
+                {newUnicorn}
+                {restart}
+                {/* <Link to="/">Home</Link> */}
                 {/* Logout link also needs to logout user, not just navigate */}
-                <button onClick={this.logout}>Logout</button>
-                <Link to="/restart_game">Restart Game</Link>
+                {/* <button onClick={this.logout}>Logout</button> */}
+                {/* <Link to="/restart_game">Restart Game</Link> */}
             </nav>
         )
     }
