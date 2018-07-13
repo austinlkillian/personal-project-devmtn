@@ -15,6 +15,8 @@ class ListUnicorn extends Component{
                 this.props.history.push('/play_game/' + fileName)
             )
             .catch(err => {console.log(err)});
+        //Pass the currently chosen unicorn's file_name value to Redux store
+        console.log(this.props.file_name)
     }
 
     render(){

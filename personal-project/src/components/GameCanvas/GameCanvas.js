@@ -1,15 +1,17 @@
 import React from 'react'
+import {connect} from 'react-redux';
+import {levelUpStore} from '../../ducks/reducer'
+import {scoreUp} from '../../ducks/reducer'
 import orange from '../../images/orange.png'
 import rainbow from '../../images/rainbow.png'
 import pink from '../../images/pink.png'
 import blue from '../../images/blue.png'
+import store from '../../ducks/store'
 
 class GameCanvas extends React.Component {
     constructor() {
         super()
         this.state = {
-            score: 0,
-            level: 1,
             unicornId: null,
             unicornFile: "",
             unicornStyle: {
@@ -137,10 +139,8 @@ class GameCanvas extends React.Component {
         })
     }
     //Reset unicorn position, used when user levels up
-    levelUp = (myScore) => {
+    resetUnicorn = () => {
         this.setState({
-            score: myScore,
-            level: this.state.level + 1,
             bubbles: [],
             unicornStyle: {
                 width: 60,
@@ -179,60 +179,84 @@ class GameCanvas extends React.Component {
                 //Is the bubble within the unicorn's width? If so, bubble is set to popped, and it will get filtered out of the array
                 if((bubble.bubbleRight > unicornLeft && !(bubble.bubbleLeft > unicornRight))){
                      console.log("Pop!")
+                     //This is set to true so that the bubble will be filtered out of the array
                      bubble.popped = true;
-                     //Conditional logic to level up
-                     let myScore = this.state.score+5;
-                    //  if(myScore === 50){
-                    //      alert("You beat Level 1!")
-                    //     this.setState({
-                    //         score: myScore,
-                    //         level: this.state.level + 1
-                    //     })
-                    //  } else {
-                    //     this.setState({
-                    //         score: myScore
-                    //     })
-                    //  }
+                     //Conditional logic to level up and win game
+                     //Pull the score from Redux store (access to this data is set up in the mapStateToProps function)
+                     let myScore = this.props.score+5;
+                     //Depending on the score, level up OR just update the score
                     switch(myScore){
                         case 15:
                             alert("You beat Level 1!")
-                            this.levelUp(myScore)
+                            //reset unicorn position
+                            this.resetUnicorn();
+                            //increase Redux store's score value
+                            this.props.scoreUp(myScore);
+                            //update Redux store level's value
+                            this.props.levelUpStore(this.props.level + 1);
                             break;
                         case 25:
                             alert("You beat Level 2!")
-                            this.levelUp(myScore)
+                            //this.levelUp(myScore)
+                            this.resetUnicorn();
+                            this.props.scoreUp(myScore);
+                            this.props.levelUpStore(this.props.level + 1)
                             break;
                         case 40:
                             alert("You beat Level 3!")
-                            this.levelUp(myScore)
+                            //this.levelUp(myScore)
+                            this.resetUnicorn();
+                            this.props.scoreUp(myScore);
+                            this.props.levelUpStore(this.props.level + 1)
                             break;
                         case 50:
                             alert("You beat Level 4!")
-                            this.levelUp(myScore)
+                            //this.levelUp(myScore)
+                            this.resetUnicorn();
+                            this.props.scoreUp(myScore);
+                            this.props.levelUpStore(this.props.level + 1)
                             break;
                         case 60:
                             alert("You beat Level 5!")
-                            this.levelUp(myScore)
+                            //this.levelUp(myScore)
+                            this.resetUnicorn();
+                            this.props.scoreUp(myScore);
+                            this.props.levelUpStore(this.props.level + 1)
                             break;
                         case 70:
                             alert("You beat Level 6!")
-                            this.levelUp(myScore)
+                            //this.levelUp(myScore)
+                            this.resetUnicorn();
+                            this.props.scoreUp(myScore);
+                            this.props.levelUpStore(this.props.level + 1)
                             break;
                         case 80:
                             alert("You beat Level 7!")
-                            this.levelUp(myScore)
+                            //this.levelUp(myScore)
+                            this.resetUnicorn();
+                            this.props.scoreUp(myScore);
+                            this.props.levelUpStore(this.props.level + 1)
                             break;
                         case 90:
                             alert("You beat Level 8!")
-                            this.levelUp(myScore)
+                            //this.levelUp(myScore)
+                            this.resetUnicorn();
+                            this.props.scoreUp(myScore);
+                            this.props.levelUpStore(this.props.level + 1)
                             break;
                         case 100:
+                            alert("You beat Level 9!")
+                            //this.levelUp(myScore)
+                            this.resetUnicorn();
+                            this.props.scoreUp(myScore);
+                            this.props.levelUpStore(this.props.level + 1)
+                            break;
+                        case 110:
                             alert("Congratulations! You won the game!")
                             break;
                         default:
-                            this.setState({
-                                score: myScore
-                            })
+                        //If none of the levels are being "won" on this score, JUST increase the score
+                            this.props.scoreUp(myScore);
                     }
                 }
             }
@@ -271,6 +295,7 @@ class GameCanvas extends React.Component {
     }
 
     render(){
+        console.log(store.getState())
         let showBubbles = this.state.bubbles.map((bubble, index) => {
             return (
                 <div key={index} style={bubble.styling} className='bubble'>
@@ -312,7 +337,7 @@ class GameCanvas extends React.Component {
                 //This makes it so you can use the buttons 
                 autoFocus={true}
             >
-                <h2>Level: {this.state.level} Score: {this.state.score}</h2>
+                <h2>Level: {this.props.level} Score: {this.props.score}</h2>
                 { showBubbles }
                 <img id="unicornImage" src={chosenImgVar} alt="" style={this.state.unicornStyle}/>
                 <button 
@@ -327,4 +352,14 @@ class GameCanvas extends React.Component {
     }
 }
 
-export default GameCanvas;
+//Pulls variables FROM store and makes them available on the props object
+//this.props.level will be the current (old) store level value
+//this.props.score will be the current (old) store score value
+function mapStateToProps(state){
+    return {
+        level: state.level,
+        score: state.score
+    }
+}
+
+export default connect(mapStateToProps, {levelUpStore, scoreUp})(GameCanvas);

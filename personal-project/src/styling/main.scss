@@ -1,0 +1,10 @@
+@import 'variables';
+@import 'home_page';
+@import 'popup_modules';
+
+.popup {
+    // @extend lets you plug in all the styling that you've stored as popupBox, and it will automatically get applied to this selected element
+    @extend %popupBox;
+    //This runs like a function. popup() (from popup_modules) has been set up to apply these arguments to given properties 
+    @include popup(#f65, #9f7);
+}
