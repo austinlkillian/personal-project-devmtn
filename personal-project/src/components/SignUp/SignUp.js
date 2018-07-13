@@ -17,7 +17,6 @@ class SignUp extends Component {
         let {username, password} = this.state;
         axios.get('/all_usernames')
             .then(usernames => {
-                console.log(usernames.data)
                 let nameArray = usernames.data.map(val => {
                     return val.username
                 })
@@ -40,13 +39,15 @@ class SignUp extends Component {
                             })
                         })
                         .catch(err => {
-                        console.log(err)
-                    });
+                            console.log("Unable to create new user.",err)
+                        });
                 }  else{
                     alert("Please choose a different username. This username is already taken.")
                 }
             })
-            .catch()
+            .catch(err => {
+                console.log("Unable to access username info.", err)
+            })
     }
 
     onEnter = (e) => {

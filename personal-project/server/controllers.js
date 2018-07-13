@@ -56,6 +56,7 @@ module.exports = {
                         });
                     } else {
                         console.log("The password thing didn't work")
+                        res.status(500).send({errorMessage: "Oops! Something went wrong"});
                     }
                 })
             })

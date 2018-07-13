@@ -8,6 +8,8 @@ class GameCanvas extends React.Component {
     constructor() {
         super()
         this.state = {
+            score: 0,
+            level: 1,
             unicornId: null,
             unicornFile: "",
             unicornStyle: {
@@ -26,7 +28,6 @@ class GameCanvas extends React.Component {
             //Unicorn's left corner from left side of canvas
             unicornLeft:270,
             bubbleId: 0,
-            score: 0,
             bubbles: [],
             creationTimer: null,
             movementTimer: null,
@@ -90,8 +91,8 @@ class GameCanvas extends React.Component {
         this.setState({
             unicornFile: this.props.unicornFile,
             unicornId: this.props.unicornId,
-            creationTimer: this.creationTimer = setInterval(this.makeBubbles, 2500),
-            movementTimer: this.movementTimer = setInterval(this.moveBubbles,   110)
+            creationTimer: this.creationTimer = setInterval(this.makeBubbles, 3400),
+            movementTimer: this.movementTimer = setInterval(this.moveBubbles,   400)
        })
      }
 
@@ -135,6 +136,28 @@ class GameCanvas extends React.Component {
             bubbles: newBubbles
         })
     }
+    //Reset unicorn position, used when user levels up
+    levelUp = (myScore) => {
+        this.setState({
+            score: myScore,
+            level: this.state.level + 1,
+            bubbles: [],
+            unicornStyle: {
+                width: 60,
+                height: 60,
+                position: "absolute",
+                top: 280,
+                left: 270
+            },
+            unicornTop: 280,
+            //Distance of the bottom of the unidorn from the top of the canvas
+            unicornBottom: 340,
+            //Unicorn's rignt corner from left side of canvas
+            unicornRight:330,
+            //Unicorn's left corner from left side of canvas
+            unicornLeft:270
+        })
+    }
 
     moveBubbles = () => {
         let alteredBubbles = this.state.bubbles.map( bubble => {
@@ -153,12 +176,64 @@ class GameCanvas extends React.Component {
         let newArr = alteredBubbles.map( (bubble, index, arr) => {
             //Is bubble at unicorn collision height and within the unicorn's width parameters?
             if(unicornTop===bubble.bubbleBottom || (unicornTop < bubble.bubbleBottom &&bubble.bubbleBottom < (unicornBottom + 40))){
+                //Is the bubble within the unicorn's width? If so, bubble is set to popped, and it will get filtered out of the array
                 if((bubble.bubbleRight > unicornLeft && !(bubble.bubbleLeft > unicornRight))){
                      console.log("Pop!")
                      bubble.popped = true;
-                     this.setState({
-                         score: this.state.score + 5
-                     })
+                     //Conditional logic to level up
+                     let myScore = this.state.score+5;
+                    //  if(myScore === 50){
+                    //      alert("You beat Level 1!")
+                    //     this.setState({
+                    //         score: myScore,
+                    //         level: this.state.level + 1
+                    //     })
+                    //  } else {
+                    //     this.setState({
+                    //         score: myScore
+                    //     })
+                    //  }
+                    switch(myScore){
+                        case 15:
+                            alert("You beat Level 1!")
+                            this.levelUp(myScore)
+                            break;
+                        case 25:
+                            alert("You beat Level 2!")
+                            this.levelUp(myScore)
+                            break;
+                        case 40:
+                            alert("You beat Level 3!")
+                            this.levelUp(myScore)
+                            break;
+                        case 50:
+                            alert("You beat Level 4!")
+                            this.levelUp(myScore)
+                            break;
+                        case 60:
+                            alert("You beat Level 5!")
+                            this.levelUp(myScore)
+                            break;
+                        case 70:
+                            alert("You beat Level 6!")
+                            this.levelUp(myScore)
+                            break;
+                        case 80:
+                            alert("You beat Level 7!")
+                            this.levelUp(myScore)
+                            break;
+                        case 90:
+                            alert("You beat Level 8!")
+                            this.levelUp(myScore)
+                            break;
+                        case 100:
+                            alert("Congratulations! You won the game!")
+                            break;
+                        default:
+                            this.setState({
+                                score: myScore
+                            })
+                    }
                 }
             }
             //Is bubble off the screen?
@@ -237,7 +312,7 @@ class GameCanvas extends React.Component {
                 //This makes it so you can use the buttons 
                 autoFocus={true}
             >
-                <h2>Score: {this.state.score}</h2>
+                <h2>Level: {this.state.level} Score: {this.state.score}</h2>
                 { showBubbles }
                 <img id="unicornImage" src={chosenImgVar} alt="" style={this.state.unicornStyle}/>
                 <button 
