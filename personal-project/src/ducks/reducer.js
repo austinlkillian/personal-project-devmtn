@@ -15,6 +15,8 @@ export default function reducer(state=initialState, action){
             return Object.assign({}, state, action.payload);
         case SCORE_UP:
             return Object.assign({}, state, action.payload);
+        case UNICORN_CHOSEN:
+            return Object.assign({}, state, action.payload)
         default:
             return state;
     }
@@ -36,6 +38,16 @@ export function scoreUp(score){
         type: SCORE_UP,
         payload: {
             score
+        }
+    }
+}
+
+//This function updates the current game-play unicorn in store
+export function chosenUnicorn(file_name){
+    return {
+        type: UNICORN_CHOSEN,
+        payload: {
+            file_name
         }
     }
 }

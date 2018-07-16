@@ -1,25 +1,32 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {connect} from 'react-redux';
+import {chosenUnicorn} from '../../ducks/reducer'
 import {Link} from 'react-router-dom'
 import orange from '../../images/orange.png'
 import rainbow from '../../images/rainbow.png'
 import pink from '../../images/pink.png'
 import blue from '../../images/blue.png'
+import store from '../../ducks/store'
+
 
 class ListUnicorn extends Component{
 
     startGame = () => {
         let fileName = this.props.file_name || "rainbow"
+        //Pass the currently chosen unicorn's file_name value to Redux store
+        this.props.chosenUnicorn(fileName)
+        console.log(fileName)
         axios.put('/edit_user_current_unicorn/' + this.props.id)
             .then(
                 this.props.history.push('/play_game/' + fileName)
             )
             .catch(err => {console.log(err)});
-        //Pass the currently chosen unicorn's file_name value to Redux store
-        console.log(this.props.file_name)
+        
     }
 
     render(){
+        console.log(store.getState())
         let {name, file_name, id} = this.props
         let chosenImgVar;
         switch(file_name){
@@ -52,4 +59,5 @@ class ListUnicorn extends Component{
     }
 }
 
-export default ListUnicorn;
+//Pull the chosenUnicorn function that we imported from the reducer file and attach it to the props object
+export default connect(null, {chosenUnicorn})(ListUnicorn);

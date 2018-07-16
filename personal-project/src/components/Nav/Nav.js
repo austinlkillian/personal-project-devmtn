@@ -19,7 +19,6 @@ class Nav extends Component {
         let logout;
         let home;
         let restart;
-        let newUnicorn;
         let path = this.props.location.pathname
         switch(path){
             case "/sign_up":
@@ -45,15 +44,13 @@ class Nav extends Component {
             home = <Link to="/">Home</Link>
             if(this.props.currentUnicorn.id){
                 logout = <button onClick={this.logout}>Logout</button>
-                newUnicorn = <Link to="/pick_unicorn">Choose a Different Unicorn</Link>
-                restart = <Link to="/restart_game">Restart Game</Link>
+                restart = <Link to="/pick_unicorn">Restart Game</Link>
             }
         }
         return (
             <nav>
                 {home}
                 {logout}
-                {newUnicorn}
                 {restart}
                 {/* <Link to="/">Home</Link> */}
                 {/* Logout link also needs to logout user, not just navigate */}

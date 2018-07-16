@@ -35,7 +35,6 @@ class GamePlayScreen extends Component {
         return (
             <div>
                 <Nav {...this.props} currentUnicorn={this.state.current_unicorn}/>
-                <div className="popup">Heya, buddy</div>
                 <GameCanvas unicornFile={unicornFile} />
             </div>
         )
