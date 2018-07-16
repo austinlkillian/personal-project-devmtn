@@ -272,6 +272,8 @@ class GameCanvas extends React.Component {
                             break;
                         case 110:
                             this.showWin();
+                            this.resetUnicorn();
+                            this.props.scoreUp(myScore);
                             break;
                         default:
                         //If none of the levels are being "won" on this score, JUST increase the score
@@ -338,11 +340,16 @@ class GameCanvas extends React.Component {
     }
     //Hide level-up popup
     hideLevelUp = () => {
+        let newBubbleMakeTime = this.state.makeBubbleSpeed - 350;
+        let newBubbleMoveTime = this.state.moveBubbleSpeed - 25;
+
         this.setState({
             playingGame: true,
             showLevelPopup: false,
-            creationTimer: this.creationTimer = setInterval(this.makeBubbles, 3400),
-            movementTimer: this.movementTimer = setInterval(this.moveBubbles, 400)
+            creationTimer: this.creationTimer = setInterval(this.makeBubbles, newBubbleMakeTime),
+            movementTimer: this.movementTimer = setInterval(this.moveBubbles, newBubbleMoveTime),
+            makeBubbleSpeed: newBubbleMakeTime,
+            moveBubbleSpeed: newBubbleMoveTime
         })
     }
     //Hide win-game popup
