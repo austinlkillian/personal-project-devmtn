@@ -1,0 +1,66 @@
+.list-unicorn {
+    width: 100%;
+    hr {
+        width: 100%;
+        background: white;
+        height: 5px;
+        border: none;
+        border-radius: 5px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+}
+
+.list-unicorn-container {
+    display: flex;
+    width: 90%;
+    height: 230px;
+    margin: 0 auto;
+
+    img {
+        // width: 30%;
+    }
+
+    .list-unicorn-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 90%;
+        height: 100%;
+        h2 {
+            font-family: $cartoonFont;
+            font-size: 50px;
+            margin-left: 20px;
+            margin-top: 25px;
+        }
+
+        .list-unicorn-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 90%;
+            margin-left: 40px;
+            .edit {
+                background: #FFBF69;
+                font-family: $boring;
+                font-size: 18px;
+                text-align: center;
+                height: 40px;
+                width: 85px;
+                padding-top: 20px;
+                margin-bottom: 20px;
+            }
+    
+            .play {
+                width: 160px;
+                height: 100px;
+                padding-top: 5px;
+                font-size: 40px;
+                margin-left: 50px;
+                margin-bottom: 30px;
+            }
+        }
+    }
+}
+

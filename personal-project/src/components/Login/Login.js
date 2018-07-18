@@ -42,18 +42,23 @@ class Login extends Component {
         return (
             <div onKeyDown={e => this.onEnter(e)}>
                 <Nav {...this.props} />
-                <h1>Login</h1>
-                <input
-                    type="text"
-                    onChange={(e) => {this.setState({username: e.target.value})}} placeholder="Username" 
-                    value={this.state.username}/>
+                <div className="auth-container">
+                    <h1 className="auth-title">Login</h1>
+                    <input
+                        className="auth-input"
+                        type="text"
+                        onChange={(e) => {this.setState({username: e.target.value})}} placeholder="Username" 
+                        value={this.state.username}
+                        autoFocus={true}/>
 
-                <input 
-                    type="text" 
-                    onChange={(e) => {this.setState({password: e.target.value})}} placeholder="Password" 
-                    value={this.state.password}/>
+                    <input
+                        className="auth-input"
+                        type="text"
+                        onChange={(e) => {this.setState({password: e.target.value})}} placeholder="Password" 
+                        value={this.state.password}/>
 
-                <button onClick={this.login}>Login</button>
+                    <button className="auth-submit button" onClick={this.login}>Submit</button>
+                </div>
             </div>
         )
     }

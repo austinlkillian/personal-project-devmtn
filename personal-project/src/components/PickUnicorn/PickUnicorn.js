@@ -49,12 +49,16 @@ class PickUnicorn extends Component{
             )
         });
         return (
-            <div>
+            <div className="choose-unicorn">
                 <Nav {...this.props} />
-                <h1>Choose Your Unicorn!</h1>
-                <Link to="/create_unicorn">Create New Unicorn</Link>
-                <hr/>
-                {userUnicorns}
+                <div className="choose-unicorn-container">
+                    <h1 className="title">Choose Your Unicorn!</h1>
+                    <Link to="/create_unicorn" className="button create-unicorn-btn">Create New Unicorn</Link>
+                    <hr/>
+                    <div className="user-unicorns">
+                        {userUnicorns}
+                    </div>
+                </div>
             </div>
         )
     }

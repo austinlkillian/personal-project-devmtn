@@ -47,12 +47,21 @@ class ListUnicorn extends Component{
         }
 
         return (
-            <div>
-                <h1>List Unicorn</h1>
-                <img src={chosenImgVar} alt=""/>
-                {name}
-                <Link to={"/select_unicorn/" + id}>Edit Unicorn</Link>
-                <button onClick={this.startGame}>Play!</button>
+            <div className="list-unicorn">
+                <div className="list-unicorn-container">
+                    <div>
+                        <img src={chosenImgVar} alt=""/>
+                    </div>
+                    <div className="list-unicorn-content">
+                        <h2>{name}</h2>
+                        <div className="list-unicorn-buttons">
+                            <div className="button edit">
+                                <Link to={"/select_unicorn/" + id}>Edit Unicorn</Link>
+                            </div>
+                            <button className="button play" onClick={this.startGame}>Play!</button>
+                        </div>
+                    </div>
+                </div>
                 <hr/>
             </div>
         )

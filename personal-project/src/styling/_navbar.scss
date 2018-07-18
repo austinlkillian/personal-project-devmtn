@@ -1,0 +1,47 @@
+nav {
+    height: 15%;
+    padding: 33px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.home-link {
+    width: 10px;
+    height: 10px;
+    //Set size of fontAwesome icon
+    font-size: 39px;
+}
+
+.logout-button {
+    width: 10px;
+    height: 10px;
+    margin-right: 90px;
+    margin-left: 33px;
+    font-family: 'Lakki Reddy', cursive;
+    color: white;
+    font-size: 30px;
+    letter-spacing: 1.3px;
+}
+
+.fa-home:hover {
+    color: blue;
+}
+
+a {
+    color: white;
+}
+
+.restart-logout-div {
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.nav-logout {
+    letter-spacing: 1.3px;
+}

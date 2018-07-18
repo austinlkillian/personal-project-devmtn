@@ -1,3 +1,90 @@
-html {
-    background: $light;
+.home-page {
+    width: 1000px;
+    height: 100vh;
+    margin: 0 auto;
+    position: relative;
+    .link {
+        color: white;
+        background: pink;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+        font-family: $spongeBob;
+    }
+    .home-play {
+        border-radius: 50%;
+        position: absolute;
+        top: 420px;
+        right: 100px;
+        width: 180px;
+        height: 180px;
+        font-size: 40px;
+        font-family: $boring;
+    }
+
+    .home-auth {
+        width: 120px;
+        height: 60px;
+        position: absolute;
+        font-size: 25px;
+        padding-top: 7px;
+    }
+
+    .sign-up {
+        position: absolute;
+        right: 580px;
+        top: 540px;
+
+    }
+
+    .login {
+        position: absolute;
+        right: 430px;
+        top: 540px;
+    }
+}
+
+
+
+.home-title {
+    width: 60%;
+    margin: 0 auto;
+    padding-top: 200px;
+}
+
+
+.home-message {
+    color: white;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 25px;
+    width: 300px;
+    text-align: center;
+    line-height: 1.25;
+    letter-spacing: 1.25px;
+    position: absolute;
+    top: 450px;
+    left: 300px;
+}
+
+.home-title-text-unicorn {
+    font-family: $unicornFont;
+    font-size: 120px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    line-height: .7;
+}
+
+.home-title-text-vs {
+    font-family: $plainFont;
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.home-title-text-bubbles {
+    font-family: $cartoonFont;
+    font-size: 120px;
+    text-align: right;
 }

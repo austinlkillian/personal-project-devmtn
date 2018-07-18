@@ -99,7 +99,6 @@ class EditUnicorn extends Component{
         if(this.state.file_name){
             imageElement = <img src={chosenImgVar} alt=""/>
         }
-        
 
         return (
             <div>

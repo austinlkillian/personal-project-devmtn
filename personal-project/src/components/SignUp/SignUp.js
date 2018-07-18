@@ -60,10 +60,12 @@ class SignUp extends Component {
         return (
             <div onKeyDown={e => this.onEnter(e)}>
                 <Nav {...this.props} />
-                <h1>Sign Up</h1>
-                <input type="text" onChange={(e) => {this.setState({username: e.target.value})}} placeholder="Username" value={this.state.username}/>
-                <input type="text" onChange={(e) => {this.setState({password: e.target.value})}} placeholder="Password" value={this.state.password}/>
-                <button onClick={this.newUser}>Submit</button>
+                <div className="auth-container">
+                    <h1 className="auth-title">Sign Up</h1>
+                    <input autoFocus={true} className="auth-input" type="text" onChange={(e) => {this.setState({username: e.target.value})}} placeholder="Username" value={this.state.username}/>
+                    <input className="auth-input" type="text" onChange={(e) => {this.setState({password: e.target.value})}} placeholder="Password" value={this.state.password}/>
+                    <button className="auth-submit button" onClick={this.newUser}>Submit</button>
+                </div>
             </div>
         )
     }

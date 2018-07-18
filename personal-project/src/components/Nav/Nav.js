@@ -22,36 +22,63 @@ class Nav extends Component {
         let path = this.props.location.pathname
         switch(path){
             case "/sign_up":
-                home = <Link to="/">Home</Link>
+                home = <div className="home-link">
+                        <Link to="/"><i class="fas fa-home fa-lg"></i></Link>
+                        </div>
                 break;
             case "/login":
-                home = <Link to="/">Home</Link>
+                home = <div className="home-link">
+                            <Link to="/"><i className="fas fa-home fa-lg"></i></Link>
+                        </div>
                 break;
             case "/pick_unicorn":
-                home = <Link to="/">Home</Link>
-                logout = <button onClick={this.logout}>Logout</button>
+                home = <div className="home-link">
+                        <Link to="/"><i className="fas fa-home fa-lg"></i></Link>
+                    </div>
+                logout = <div className="logout-button">
+                    <button className="nav-logout" onClick={this.logout}>Logout</button>
+                </div>
                 break;
             case "/create_unicorn":
-                home = <Link to="/">Home</Link>
-                logout = <button onClick={this.logout}>Logout</button>
+                home = <div className="home-link">
+                        <Link to="/"><i className="fas fa-home fa-lg"></i></Link>
+                    </div>
+                logout = <div className="logout-button">
+                    <button className="nav-logout" onClick={this.logout}>Logout</button>
+                </div>
                 break;
         }
         if(path.indexOf("/select") !== -1){
-            home = <Link to="/">Home</Link>
-            logout = <button onClick={this.logout}>Logout</button>
+            home = <div className="home-link">
+                    <Link to="/"><i className="fas fa-home fa-lg"></i></Link>
+                </div>
+            logout = <div className="logout-button">
+                <button className="nav-logout" onClick={this.logout}>Logout</button>
+            </div>
         }
         if(path.indexOf("/play") !== -1){
-            home = <Link to="/">Home</Link>
+            home = <div className="home-link">
+                    <Link to="/"><i className="fas fa-home fa-lg"></i></Link>
+                </div>
             if(this.props.currentUnicorn.id){
-                logout = <button onClick={this.logout}>Logout</button>
-                restart = <Link to="/pick_unicorn">Restart Game</Link>
+                logout = <div className="logout-button">
+                            <button className="nav-logout" onClick={this.logout}>Logout</button>
+                    </div>
+                restart = <div className="logout-button">
+                            <Link to="/pick_unicorn">Restart</Link>
+                        </div>
+                
+                
             }
         }
         return (
             <nav>
                 {home}
-                {logout}
-                {restart}
+                <div className="restart-logout-div">
+                    {restart}
+                    {logout}
+                </div>
+                
                 {/* <Link to="/">Home</Link> */}
                 {/* Logout link also needs to logout user, not just navigate */}
                 {/* <button onClick={this.logout}>Logout</button> */}
