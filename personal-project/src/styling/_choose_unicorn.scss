@@ -11,17 +11,18 @@
     padding-top: 40px;
 
     .user-unicorns {
-        background: #8fd7e5;;
+        background: $lightSea;;
         border-radius: 50px;
-        box-shadow: 0px 0px 85px 55px #8fd7e5;
-        width: 70%;
+        box-shadow: 0px 0px 85px 55px $lightSea;
+        width: 80%;
         padding-bottom: 40px;
     }
 
     .title {
         font-family: $unicornFont;
-        font-size: 60px;
+        font-size: 75px;
         margin: 0px;
+        text-align: center;
     }
 
     .create-unicorn-btn {
@@ -31,7 +32,7 @@
         text-align: center;
         padding-top: 22px;
         margin-top: 25px;
-        margin-bottom: 55px;
+        margin-bottom: 65px;
     }
 }
 

@@ -10,7 +10,7 @@ function HomePage(){
                 <h1 className="home-title-text-bubbles">Bubbles</h1>
             </div>
             <div className="link home-play">
-                <Link to="play_game/rainbow">Play</Link>
+                <Link to="play_game/rainbow" className="link">Play</Link>
             </div>
             <div className="home-message">
                 <p>Sign up or log in to create your own unicorns!</p>

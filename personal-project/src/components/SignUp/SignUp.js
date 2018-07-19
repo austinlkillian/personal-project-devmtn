@@ -62,8 +62,21 @@ class SignUp extends Component {
                 <Nav {...this.props} />
                 <div className="auth-container">
                     <h1 className="auth-title">Sign Up</h1>
-                    <input autoFocus={true} className="auth-input" type="text" onChange={(e) => {this.setState({username: e.target.value})}} placeholder="Username" value={this.state.username}/>
-                    <input className="auth-input" type="text" onChange={(e) => {this.setState({password: e.target.value})}} placeholder="Password" value={this.state.password}/>
+                    <input 
+                        autoFocus={true} 
+                        className="auth-input" 
+                        type="text" 
+                        onChange={(e) => {this.setState({username: e.target.value})}} 
+                        placeholder="Username" 
+                        value={this.state.username}
+                        maxLength="25"/>
+                    <input 
+                        className="auth-input" 
+                        type="text" 
+                        onChange={(e) => {this.setState({password: e.target.value})}} 
+                        placeholder="Password" 
+                        value={this.state.password}
+                        maxLength="25"/>
                     <button className="auth-submit button" onClick={this.newUser}>Submit</button>
                 </div>
             </div>

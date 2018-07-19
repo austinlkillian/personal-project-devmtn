@@ -66,45 +66,76 @@ class CreateUnicorn extends Component{
         return (
             <div>
                 <Nav {...this.props} />
-                <h1>Create Your Unicorn!</h1>
-                <img src={chosenImgVar} alt=""/>
-                <input
-                    type="text"
-                    placeholder="Name your unicorn!"
-                    onChange={(e) => {this.setState({name: e.target.value})}}
-                    value={this.state.name}/>
-                <br/>
-                <label htmlFor="rainbow">Rainbow</label>
-                <input 
-                    name="chosen"
-                    value="rainbow" 
-                    id="rainbow" 
-                    type="radio" 
-                    onClick={e => this.updateChosenUnicorn(e)}
-                    defaultChecked={true}/>
-                <label htmlFor="pink">Pink</label>
-                <input 
-                    name="chosen"
-                    value="pink" 
-                    id="pink" 
-                    type="radio" 
-                    onClick={e => this.updateChosenUnicorn(e)}/>
-                <label htmlFor="orange">Orange</label>
-                <input 
-                    name="chosen"
-                    value="orange" 
-                    id="orange" 
-                    type="radio"
-                    onClick={e => this.updateChosenUnicorn(e)}/>
-                <label htmlFor="blue">Blue</label>
-                <input 
-                    name="chosen"
-                    value="blue" 
-                    id="blue" 
-                    type="radio"
-                    onClick={e => this.updateChosenUnicorn(e)}/>
-                <br/>
-                <button onClick={this.newUnicorn}>Save</button>
+                <div className="format-unicorn">
+                    <h1 className="title">Create Your Unicorn!</h1>
+                    <div className="content-main">
+                        <div>
+                            <div>
+                                <img className="main-image" src={chosenImgVar} alt=""/>
+                            </div>
+                            <div className="image-choices">
+                                <div className="thumbnails">
+                                    <label htmlFor="rainbow">
+                                        <img className="thumbnail" src={rainbow} alt=""/>
+                                    </label>
+                                    <label htmlFor="pink">
+                                        <img className="thumbnail" src={pink} alt=""/>
+                                    </label>
+                                    <label htmlFor="orange">
+                                        <img className="thumbnail" src={orange} alt=""/>
+                                    </label>
+                                    <label htmlFor="blue">
+                                        <img className="thumbnail" src={blue} alt=""/>
+                                    </label>
+                                </div>
+                                <div>
+                                    <input
+                                        className="radio"
+                                        name="chosen"
+                                        value="rainbow"
+                                        id="rainbow"
+                                        type="radio"
+                                        onClick={e => this.updateChosenUnicorn(e)}
+                                        defaultChecked={true}/>
+
+                                    <input
+                                        className="radio"
+                                        name="chosen"
+                                        value="pink"
+                                        id="pink"
+                                        type="radio"
+                                        onClick={e => this.updateChosenUnicorn(e)}/>
+
+                                    <input
+                                        className="radio"
+                                        name="chosen"
+                                        value="orange"
+                                        id="orange"
+                                        type="radio"
+                                        onClick={e => this.updateChosenUnicorn(e)}/>
+
+                                    <input
+                                        className="radio"
+                                        name="chosen"
+                                        value="blue"
+                                        id="blue"
+                                        type="radio"
+                                        onClick={e => this.updateChosenUnicorn(e)}/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="name-and-save">
+                            <input
+                            type="text"
+                            placeholder="Name your unicorn!"
+                            onChange={(e) => {this.setState({name: e.target.value})}}
+                            value={this.state.name}
+                            maxLength="25"
+                            className="unicorn-name-input"/>
+                            <button onClick={this.newUnicorn} className="button">Save</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }

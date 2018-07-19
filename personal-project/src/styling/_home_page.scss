@@ -22,6 +22,11 @@
         height: 180px;
         font-size: 40px;
         font-family: $boring;
+        .link {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
     }
 
     .home-auth {

@@ -103,49 +103,53 @@ class EditUnicorn extends Component{
         return (
             <div>
                 <Nav {...this.props} />
-                <h1>Edit Your Unicorn!</h1>
-                {imageElement}
-                <button onClick={this.deleteUnicorn}>Delete Unicorn</button>
-                <br/>
-                <input
-                    type="text"
-                    onChange={(e) => {this.setState({name: e.target.value})}}
-                    value={this.state.name}/>
-                <br/>
-                <label htmlFor="rainbow">Rainbow</label>
-                <input 
-                    name="chosen"
-                    value="rainbow" 
-                    id="rainbow" 
-                    type="radio" 
-                    onClick={e => this.updateChosenUnicorn(e)}
-                    defaultChecked={rainbowCheck}/>
-                <label htmlFor="pink">Pink</label>
-                <input 
-                    name="chosen"
-                    value="pink" 
-                    id="pink" 
-                    type="radio" 
-                    onClick={e => this.updateChosenUnicorn(e)}
-                    defaultChecked={pinkCheck}/>
-                <label htmlFor="orange">Orange</label>
-                <input 
-                    name="chosen"
-                    value="orange" 
-                    id="orange" 
-                    type="radio"
-                    onClick={e => this.updateChosenUnicorn(e)}
-                    defaultChecked={orangeCheck}/>
-                <label htmlFor="blue">Blue</label>
-                <input 
-                    name="chosen"
-                    value="blue" 
-                    id="blue" 
-                    type="radio"
-                    onClick={e => this.updateChosenUnicorn(e)}
-                    defaultChecked={blueCheck}/>
-                <br/>
-                <button onClick={this.editUnicorn}>Save</button>
+                <div className="format-unicorn">
+                    <h1 className="title">Edit Your Unicorn!</h1>
+                    {imageElement}
+                    <button onClick={this.deleteUnicorn}>Delete Unicorn</button>
+                    <br/>
+                    <input
+                        type="text"
+                        onChange={(e) => {this.setState({name: e.target.value})}}
+                        value={this.state.name}
+                        maxLength="25"
+                        className="unicorn-name-input"/>
+                    <br/>
+                    <label htmlFor="rainbow">Rainbow</label>
+                    <input 
+                        name="chosen"
+                        value="rainbow" 
+                        id="rainbow" 
+                        type="radio" 
+                        onClick={e => this.updateChosenUnicorn(e)}
+                        defaultChecked={rainbowCheck}/>
+                    <label htmlFor="pink">Pink</label>
+                    <input 
+                        name="chosen"
+                        value="pink" 
+                        id="pink" 
+                        type="radio" 
+                        onClick={e => this.updateChosenUnicorn(e)}
+                        defaultChecked={pinkCheck}/>
+                    <label htmlFor="orange">Orange</label>
+                    <input 
+                        name="chosen"
+                        value="orange" 
+                        id="orange" 
+                        type="radio"
+                        onClick={e => this.updateChosenUnicorn(e)}
+                        defaultChecked={orangeCheck}/>
+                    <label htmlFor="blue">Blue</label>
+                    <input 
+                        name="chosen"
+                        value="blue" 
+                        id="blue" 
+                        type="radio"
+                        onClick={e => this.updateChosenUnicorn(e)}
+                        defaultChecked={blueCheck}/>
+                    <br/>
+                    <button onClick={this.editUnicorn}>Save</button>
+                </div>
             </div>
         )
     }
