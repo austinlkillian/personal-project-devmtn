@@ -1,15 +1,30 @@
 .list-unicorn {
     width: 100%;
-    padding-top: 40px;
+    padding-top: 10px;
+    
     hr {
         width: 100%;
         background: white;
         height: 5px;
         border: none;
         border-radius: 5px;
-        margin-top: 25px;
+        margin-top: 125px;
         margin-bottom: 25px;
     }
+
+    .edit {
+        background: #FFBF69;
+        font-family: $boring;
+        font-size: 18px;
+        text-align: center;
+        height: 10px;
+        width: 75px;
+        padding-top: 9px;
+        padding-bottom: 27px;
+        margin-bottom: 25px;
+        margin-top: 17px;
+    }
+
 }
 
 .list-unicorn-container {
@@ -18,8 +33,14 @@
     height: 230px;
     margin: 0 auto;
 
+    .image-edit {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
     img {
-        // width: 30%;
+        margin-top: 20px;
     }
 
     .list-unicorn-content {
@@ -31,47 +52,35 @@
         height: 100%;
         h2 {
             font-family: $cartoonFont;
-            font-size: 50px;
+            font-size: 60px;
             margin-top: 25px;
             padding-top: 10px;
             padding-bottom: 10px;
+            text-align: center;
         }
 
         .play {
-            width: 270px;
+            display: block;
+            width: 250px;
             padding-left: 10px;
             padding-right: 10px;
-            height: 140px;
             padding-top: 5px;
-            font-size: 35px;
-            margin-left: 50px;
-            margin-bottom: 30px;
-            margin-top: 65px;
+            font-size: 28px;
+            min-height: 100px;
+            margin-top: 20px;
         }
 
         .list-unicorn-buttons {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
             width: 100%;
-            margin-left: 5px;
+            margin-left: 65px;
 
             .unicorn-name {
-                width: 70%;
+                margin-top: 0px;
+                padding-top: 0px;
                 word-wrap: break-word;
-            }
-
-            .edit {
-                margin-left: 25px;
-                background: #FFBF69;
-                font-family: $boring;
-                font-size: 18px;
-                text-align: center;
-                height: 10px;
-                width: 75px;
-                padding-top: 9px;
-                padding-bottom: 27px;
-                margin-bottom: 25px;
             }
         }
     }

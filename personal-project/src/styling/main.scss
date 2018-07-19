@@ -7,6 +7,7 @@
 @import 'choose_unicorn';
 @import 'list_unicorn';
 @import 'format_unicorn';
+@import 'game_play';
 @import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Acme|Chela+One|Coiny|Delius+Swash+Caps|Fontdiner+Swanky|Henny+Penny|Lakki+Reddy|Luckiest+Guy|Mystery+Quest|Snowburst+One|Source+Sans+Pro|Wendy+One');//@import url('https://fonts.googleapis.com/css?family=Acme|Chela+One');
 // font-family: 'Chela One', cursive;
 // font-family: 'Acme', sans-serif;
@@ -42,7 +43,7 @@ a {
     // @extend lets you plug in all the styling that you've stored as popupBox, and it will automatically get applied to this selected element
     @extend %popupBox;
     //This runs like a function. popup() (from popup_modules) has been set up to apply these arguments to given properties 
-    @include popup(#f65, #9f7);
+    @include popup(white, pink);
 }
 
 .button {

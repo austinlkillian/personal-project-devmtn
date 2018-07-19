@@ -397,7 +397,8 @@ class GameCanvas extends React.Component {
         let levelPopup;
         let winPopup;
         //Determines whether the "level-up" popup should be visible
-        if(this.state.showLevelPopup){
+        //this.state.showLevelPopup
+        if(true){
             levelPopup = <div 
                 className="popup" 
                 style={{zIndex: 100}}
@@ -410,7 +411,7 @@ class GameCanvas extends React.Component {
         }
         //Determines whether the "won-game" popup should be visible
         if(this.state.showWinPopup){
-            winPopup = <div className="popup ">
+            winPopup = <div className="popup">
                 <h1>Congratulations!</h1>
                 <h2>You won the game!</h2>
                 <Link to="/pick_unicorn">Play Again?</Link>
@@ -458,7 +459,6 @@ class GameCanvas extends React.Component {
                 autoFocus={true}
             >
                 <h2>Level: {this.props.level} Score: {this.props.score}</h2>
-                {/* <button onClick={this.restart}>Restart Game</button> */}
                 { showBubbles }
                 <img id="unicornImage" src={chosenImgVar} alt="" style={this.state.unicornStyle}/>
                 <button 
@@ -468,7 +468,6 @@ class GameCanvas extends React.Component {
                 <button onClick={this.moveDown} style={this.state.downBtnStyle}>Down</button>
                 <button onClick={this.moveLeft} style={this.state.leftBtnStyle}>Left</button>
                 <button onClick={this.moveRight} style={this.state.rightBtnStyle}>Right</button>
-                {/* These are shown conditionally, based on logic at top of render function */}
                 {levelPopup}
                 {winPopup}
             </div>

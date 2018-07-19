@@ -131,7 +131,8 @@ class CreateUnicorn extends Component{
                             onChange={(e) => {this.setState({name: e.target.value})}}
                             value={this.state.name}
                             maxLength="25"
-                            className="unicorn-name-input"/>
+                            className="unicorn-name-input"
+                            autoFocus={true}/>
                             <button onClick={this.newUnicorn} className="button">Save</button>
                         </div>
                     </div>
