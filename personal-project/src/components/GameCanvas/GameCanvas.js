@@ -117,14 +117,14 @@ class GameCanvas extends React.Component {
         let currentScreenWidth;
         let currentScreenHeight;
         if(window.innerWidth > 700){
-            currentScreenWidth  = window.innerWidth * 0.45;
+            currentScreenWidth  = window.innerWidth * 0.55;
         } else {
             currentScreenWidth = 300;
         }
         if(window.innerHeight > 600){
             currentScreenHeight = window.innerHeight * 0.7;
         } else {
-            currentScreenHeight = 450;
+            currentScreenHeight = 400;
         }
         this.setState({
             //Set current screen width
@@ -199,6 +199,12 @@ class GameCanvas extends React.Component {
 
      //Create array of bubbles
     makeBubbles = () => {
+        let bubbleSize;
+        if(this.state.gameWidth > 600){
+            bubbleSize = 70;
+        } else {
+            bubbleSize = 40;
+        }
         const column = Math.floor( Math.random() * (this.state.gameWidth - 100))
         this.setState({
             bubbleId: this.state.bubbleId + 1
@@ -212,13 +218,13 @@ class GameCanvas extends React.Component {
             bubbleBottom: -10,
             //Left edge of bubble
             bubbleLeft: column,
-            bubbleRight: column + 50,
+            bubbleRight: column + bubbleSize,
             styling: {
                 position: 'absolute',
-                top: -50,
+                top: -bubbleSize,
                 left: column,
-                width: 50,
-                height: 50,
+                width: bubbleSize,
+                height: bubbleSize,
                 backgroundColor: "aqua",
                 borderRadius: 50
             }
