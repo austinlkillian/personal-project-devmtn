@@ -22,6 +22,8 @@ class GameCanvas extends React.Component {
                 width: 60,
                 height: 60,
                 position: "absolute",
+                //Top value was originally 280, so half of 600, which was the original height of the game canvas
+                //left value was originally 270, half of the width of the original game canvas
                 top: 280,
                 left: 270
             },
@@ -45,7 +47,10 @@ class GameCanvas extends React.Component {
             downBtnStyle: {position: "absolute", bottom: 25, left:300},
             //Set the speed for the setInterval functions that create and move bubbles
             makeBubbleSpeed: 3500,
-            moveBubbleSpeed: 200
+            moveBubbleSpeed: 200,
+            //This value gets updated using window.innerWidth on componentDidMount
+            gameWidth: 0,
+            gameHeight: 0
         }
     }
 
@@ -66,7 +71,8 @@ class GameCanvas extends React.Component {
 
     moveRight = () => {
         if(this.state.playingGame){
-            if(this.state.unicornRight <= 600){
+            //this.state.screenWidth * 0.7 used to be 600
+            if(this.state.unicornRight <= this.state.gameWidth){
                 this.setState({
                     unicornStyle: Object.assign({}, this.state.unicornStyle, {
                         left: this.state.unicornStyle.left + 20
@@ -94,7 +100,7 @@ class GameCanvas extends React.Component {
 
     moveDown = () => {
         if(this.state.playingGame){
-            if(this.state.unicornTop <= 260){
+            if(this.state.unicornTop <= this.state.gameHeight - 100){
                 this.setState({
                     unicornStyle: Object.assign({}, this.state.unicornStyle, {
                         top: this.state.unicornStyle.top + 20
@@ -108,15 +114,80 @@ class GameCanvas extends React.Component {
 
     componentDidMount() {
         document.body.onkeydown = this.onArrowDown
+        let currentScreenWidth;
+        let currentScreenHeight;
+        if(window.innerWidth > 700){
+            currentScreenWidth  = window.innerWidth * 0.45;
+        } else {
+            currentScreenWidth = 300;
+        }
+        if(window.innerHeight > 600){
+            currentScreenHeight = window.innerHeight * 0.7;
+        } else {
+            currentScreenHeight = 450;
+        }
         this.setState({
+            //Set current screen width
+            gameWidth: currentScreenWidth,
+            //Set current game height
+            gameHeight: currentScreenHeight,
             //Import unicorn file name and id
             unicornFile: this.props.unicornFile,
             unicornId: this.props.unicornId,
+            //Set placement of unicorn
+            unicornStyle: {
+                width: 60,
+                height: 60,
+                position: "absolute",
+                //Top value was originally 280, so half of 600, which was the original height of the game canvas
+                //left value was originally 270, half of the width of the original game canvas
+                top: currentScreenHeight-150,
+                //The left value is the current screen width divided in half, minus half the unicorn's width
+                left: (currentScreenWidth/2) -30
+            },
+            // This is the distance of the top of the unicorn from the top of the canvas
+            unicornTop: currentScreenHeight-150,
+            //Distance of the bottom of the unidorn from the top of the canvas
+            unicornBottom: (currentScreenHeight-150) + 60,
+            //Unicorn's rignt corner from left side of canvas
+            unicornRight: ((currentScreenWidth/2) -30) + 60,
+            //Unicorn's left corner from left side of canvas
+            unicornLeft: (currentScreenWidth/2) -30,
             //Start making bubbles and moving bubbles
             creationTimer: this.creationTimer = setInterval(this.makeBubbles, this.state.makeBubbleSpeed),
             movementTimer: this.movementTimer = setInterval(this.moveBubbles, this.state.moveBubbleSpeed)
        })
      }
+
+     //Reset unicorn position, used when user levels up
+    resetUnicorn = () => {
+        let currentScreenWidth = this.state.gameWidth;
+        let currentScreenHeight = this.state.gameHeight;
+        this.setState({
+            unicornStyle: {
+                width: 60,
+                height: 60,
+                position: "absolute",
+                //Top value was originally 280, so half of 600, which was the original height of the game canvas
+                //left value was originally 270, half of the width of the original game canvas
+                top: currentScreenHeight-150,
+                //The left value is the current screen width divided in half, minus half the unicorn's width
+                left: (currentScreenWidth/2) -30
+            },
+            playingGame: false,
+            // This is the distance of the top of the unicorn from the top of the canvas
+            unicornTop: currentScreenHeight-150,
+            //Distance of the bottom of the unidorn from the top of the canvas
+            unicornBottom: (currentScreenHeight-150) + 60,
+            //Unicorn's rignt corner from left side of canvas
+            unicornRight: ((currentScreenWidth/2) -30) + 60,
+            //Unicorn's left corner from left side of canvas
+            unicornLeft: (currentScreenWidth/2) -30,
+            bubbles: [],
+            creationTimer: null,
+            movementTimer: null
+        })
+    }
 
      componentWillUnmount() {
          document.body.onkeydown = null
@@ -128,7 +199,7 @@ class GameCanvas extends React.Component {
 
      //Create array of bubbles
     makeBubbles = () => {
-        const column = Math.floor( Math.random() * 500)
+        const column = Math.floor( Math.random() * (this.state.gameWidth - 100))
         this.setState({
             bubbleId: this.state.bubbleId + 1
         })
@@ -166,29 +237,7 @@ class GameCanvas extends React.Component {
         clearInterval(this.state.movementTimer);
     }
     
-    //Reset unicorn position, used when user levels up
-    resetUnicorn = () => {
-        this.setState({
-            unicornStyle: {
-                creationTimer: null,
-                movementTimer: null,
-                width: 60,
-                height: 60,
-                position: "absolute",
-                top: 280,
-                left: 270
-            },
-            playingGame: false,
-            unicornTop: 280,
-            //Distance of the bottom of the unidorn from the top of the canvas
-            unicornBottom: 340,
-            //Unicorn's rignt corner from left side of canvas
-            unicornRight:330,
-            //Unicorn's left corner from left side of canvas
-            unicornLeft:270,
-            bubbles: []
-        })
-    }
+    
     //Asynchronous function allows the bubbles to be removed from the page before the page repopulates
     levelUp = async() => {
         await this.resetTimers();
@@ -215,7 +264,6 @@ class GameCanvas extends React.Component {
             if(unicornTop===bubble.bubbleBottom || (unicornTop < bubble.bubbleBottom &&bubble.bubbleBottom < (unicornBottom + 40))){
                 //Is the bubble within the unicorn's width? If so, bubble is set to popped, and it will get filtered out of the array
                 if((bubble.bubbleRight > unicornLeft && !(bubble.bubbleLeft > unicornRight))){
-                     console.log("Pop!")
                      //This is set to true so that the bubble will be filtered out of the array
                      bubble.popped = true;
                      //Conditional logic to level up and win game
@@ -300,7 +348,7 @@ class GameCanvas extends React.Component {
                 }
             }
             //Is bubble off the screen? If so, set bubble to "popped"
-            if(bubble.bubbleBottom > 380){
+            if(bubble.bubbleBottom > this.state.gameHeight-100){
                 bubble.popped = true;
             }
             if(!this.state.playingGame){
@@ -397,24 +445,24 @@ class GameCanvas extends React.Component {
         let levelPopup;
         let winPopup;
         //Determines whether the "level-up" popup should be visible
-        //this.state.showLevelPopup
-        if(true){
+        //
+        if(this.state.showLevelPopup){
             levelPopup = <div 
                 className="popup" 
                 style={{zIndex: 100}}
-                
                 onKeyDown={e => this.levelPopupEnter(e)
                 }>
                 <h1>You beat level {this.props.level-1}!</h1>
-                <button onClick={this.hideLevelUp } autoFocus={true}>Keep Playing</button>
+                <button className="button" onClick={this.hideLevelUp } autoFocus={true}>Keep Playing</button>
             </div>
         }
         //Determines whether the "won-game" popup should be visible
+        //
         if(this.state.showWinPopup){
             winPopup = <div className="popup">
                 <h1>Congratulations!</h1>
                 <h2>You won the game!</h2>
-                <Link to="/pick_unicorn">Play Again?</Link>
+                <Link className="button play-again" to="/pick_unicorn">Play Again?</Link>
             </div>
         }
         //Creating bubble elements to display
@@ -427,9 +475,9 @@ class GameCanvas extends React.Component {
 
         let canvasStyle = {
             position: "relative",
-            width: 600,
-            height: 400,
-            backgroundColor: "blue",
+            width: this.state.gameWidth,
+            height: this.state.gameHeight,
+            backgroundColor: "white",
             overflow: 'hidden'
         }
 
@@ -458,18 +506,20 @@ class GameCanvas extends React.Component {
                 //This makes it so you can use the buttons 
                 autoFocus={true}
             >
-                <h2>Level: {this.props.level} Score: {this.props.score}</h2>
+                <h2>Level: {this.props.level} Score {this.props.score}</h2>
                 { showBubbles }
                 <img id="unicornImage" src={chosenImgVar} alt="" style={this.state.unicornStyle}/>
-                <button 
+                {/* <button 
                     onClick={this.moveUp} 
                     style={this.state.upBtnStyle}
                 >Up</button>
                 <button onClick={this.moveDown} style={this.state.downBtnStyle}>Down</button>
                 <button onClick={this.moveLeft} style={this.state.leftBtnStyle}>Left</button>
-                <button onClick={this.moveRight} style={this.state.rightBtnStyle}>Right</button>
-                {levelPopup}
-                {winPopup}
+                <button onClick={this.moveRight} style={this.state.rightBtnStyle}>Right</button> */}
+                <div className="popup-container">
+                    {levelPopup}
+                    {winPopup}
+                </div>
             </div>
         )
     }

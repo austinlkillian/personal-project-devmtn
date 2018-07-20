@@ -43,6 +43,14 @@ class CreateUnicorn extends Component{
             file_name: e.target.value
         })
     }
+
+    //Makes it so pressing Enter creates new unicorn
+    onEnter = (e) => {
+        if(e.key==="Enter"){
+            this.newUnicorn();
+        }
+    }
+
     render(){
         // console.log(this.state.currentUser, this.state.chosenUnicorn)
         let {file_name} = this.state;
@@ -64,7 +72,7 @@ class CreateUnicorn extends Component{
                 chosenImgVar = rainbow;
         }
         return (
-            <div>
+            <div onKeyDown={e => this.onEnter(e)}>
                 <Nav {...this.props} />
                 <div className="format-unicorn">
                     <h1 className="title">Create Your Unicorn!</h1>

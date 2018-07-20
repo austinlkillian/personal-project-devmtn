@@ -68,6 +68,13 @@ class EditUnicorn extends Component{
         })
     }
 
+    //Makes it so pressing Enter edits your unicorn
+    onEnter = (e) => {
+        if(e.key==="Enter"){
+            this.editUnicorn();
+        }
+    }
+
     render(){
         let {file_name} = this.state;
         let chosenImgVar;
@@ -101,7 +108,7 @@ class EditUnicorn extends Component{
         }
 
         return (
-            <div>
+            <div onKeyDown={e => this.onEnter(e)}>
                 <Nav {...this.props} />
                 <div className="format-unicorn">
                     <h1 className="title">Edit Your Unicorn!</h1>
