@@ -8,7 +8,8 @@ class GamePlayScreen extends Component {
     constructor(){
         super();
         this.state = {
-            current_unicorn: {}
+            current_unicorn: {},
+            current_user: {}
         }
     }
 
@@ -22,7 +23,8 @@ class GamePlayScreen extends Component {
                     .then(unicorn => {
                         currentUnicorn = unicorn.data[0]
                         this.setState({
-                            current_unicorn: currentUnicorn
+                            current_unicorn: currentUnicorn,
+                            current_user: user.data[0]
                        })
                     })
                     .catch(err => {console.log(err)})
@@ -31,11 +33,12 @@ class GamePlayScreen extends Component {
     }
 
     render(){
+        // console.log(this.state.current_user)
         let unicornFile = this.props.match.params.file_name
         return (
             <div>
                 <Nav {...this.props} currentUnicorn={this.state.current_unicorn}/>
-                <GameCanvas unicornFile={unicornFile} />
+                <GameCanvas unicornFile={unicornFile} currentUser={this.state.current_user}/>
             </div>
         )
     }

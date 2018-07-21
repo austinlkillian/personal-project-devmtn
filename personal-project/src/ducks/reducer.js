@@ -7,6 +7,7 @@ let initialState = {
 let LEVEL_UP = "LEVEL_UP";
 let SCORE_UP = "SCORE_UP";
 let UNICORN_CHOSEN = "UNICORN_CHOSEN";
+let SCORE_DOWN = "SCORE_DOWN";
 
 export default function reducer(state=initialState, action){
     switch(action.type){
@@ -17,6 +18,8 @@ export default function reducer(state=initialState, action){
             return Object.assign({}, state, action.payload);
         case UNICORN_CHOSEN:
             return Object.assign({}, state, action.payload)
+        case SCORE_DOWN:
+            return Object.assign({}, state, action.payload);
         default:
             return state;
     }
@@ -36,6 +39,16 @@ export function levelUpStore(level){
 export function scoreUp(score){
     return {
         type: SCORE_UP,
+        payload: {
+            score
+        }
+    }
+}
+
+//This funciton returns the action that decreases score
+export function scoreDown(score){
+    return {
+        type: SCORE_DOWN,
         payload: {
             score
         }

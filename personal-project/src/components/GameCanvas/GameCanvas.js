@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {levelUpStore} from '../../ducks/reducer'
 import {scoreUp} from '../../ducks/reducer'
+import {scoreDown} from '../../ducks/reducer';
 import orange from '../../images/orange.png'
 import rainbow from '../../images/rainbow.png'
 import pink from '../../images/pink.png'
@@ -14,6 +15,7 @@ class GameCanvas extends React.Component {
         super()
         this.state = {
             playingGame: true,
+            gameOver: false,
             showLevelPopup: false,
             showWinPopup: false,
             unicornId: null,
@@ -41,16 +43,19 @@ class GameCanvas extends React.Component {
             creationTimer: null,
             //Moves bubbles using setInterval
             movementTimer: null,
-            leftBtnStyle: {position: "absolute", bottom: 5, left: 260},
-            rightBtnStyle: {position: "absolute", bottom: 5, left:300},
-            upBtnStyle: {position: "absolute", bottom: 25, left:260},
-            downBtnStyle: {position: "absolute", bottom: 25, left:300},
+            // leftBtnStyle: {position: "absolute", bottom: 5, left: 260},
+            // rightBtnStyle: {position: "absolute", bottom: 5, left:300},
+            // upBtnStyle: {position: "absolute", bottom: 25, left:260},
+            // downBtnStyle: {position: "absolute", bottom: 25, left:300},
             //Set the speed for the setInterval functions that create and move bubbles
-            makeBubbleSpeed: 3500,
-            moveBubbleSpeed: 200,
+            makeBubbleSpeed: 3100,
+            moveBubbleSpeed: 120,
             //This value gets updated using window.innerWidth on componentDidMount
             gameWidth: 0,
-            gameHeight: 0
+            gameHeight: 0,
+            //Increases to these increase speed of bubble creation and movement
+            makeSpeedUp: 0,
+            moveSpeedUp: 0
         }
     }
 
@@ -127,6 +132,7 @@ class GameCanvas extends React.Component {
             currentScreenHeight = 400;
         }
         this.setState({
+            currentUser: this.props.currentUser,
             //Set current screen width
             gameWidth: currentScreenWidth,
             //Set current game height
@@ -160,10 +166,12 @@ class GameCanvas extends React.Component {
      }
 
      //Reset unicorn position, used when user levels up
-    resetUnicorn = () => {
+    resetUnicorn = (makeSpeed, moveSpeed) => {
         let currentScreenWidth = this.state.gameWidth;
         let currentScreenHeight = this.state.gameHeight;
         this.setState({
+            makeSpeedUp:makeSpeed,
+            moveSpeedUp: moveSpeed,
             unicornStyle: {
                 width: 60,
                 height: 60,
@@ -185,7 +193,8 @@ class GameCanvas extends React.Component {
             unicornLeft: (currentScreenWidth/2) -30,
             bubbles: [],
             creationTimer: null,
-            movementTimer: null
+            movementTimer: null,
+            gameOver: false
         })
     }
 
@@ -201,7 +210,7 @@ class GameCanvas extends React.Component {
     makeBubbles = () => {
         let bubbleSize;
         if(this.state.gameWidth > 600){
-            bubbleSize = 70;
+            bubbleSize = 60;
         } else {
             bubbleSize = 40;
         }
@@ -242,12 +251,22 @@ class GameCanvas extends React.Component {
         clearInterval(this.state.creationTimer);
         clearInterval(this.state.movementTimer);
     }
+    resetBubbleSpeeds = () => {
+        this.setState({
+            //Set the speed for the setInterval functions that create and move bubbles
+            makeBubbleSpeed: 3100,
+            moveBubbleSpeed: 120,
+            //Increases to these increase speed of bubble creation and movement
+            makeSpeedUp: 0,
+            moveSpeedUp: 0
+        })
+    }
     
     
     //Asynchronous function allows the bubbles to be removed from the page before the page repopulates
-    levelUp = async() => {
+    levelUp = async(makeSpeed, moveSpeed) => {
         await this.resetTimers();
-        this.resetUnicorn();
+        this.resetUnicorn(makeSpeed, moveSpeed);
     }
 
     //Moves bubbles
@@ -280,7 +299,8 @@ class GameCanvas extends React.Component {
                         case 15:
                             this.showLevelUp();
                             //reset unicorn position
-                            this.levelUp();
+                            //First number is "make creation speed increase" for bubbles. Second number is "make movement  speed increase"
+                            this.levelUp(900, 75);
                             //increase Redux store's score value
                             this.props.scoreUp(myScore);
                             //update Redux store level's value
@@ -289,14 +309,14 @@ class GameCanvas extends React.Component {
                         case 25:
                             this.showLevelUp();
                             //this.levelUp(myScore)
-                            this.levelUp();
+                            this.levelUp(200, 10);
                             this.props.scoreUp(myScore);
                             this.props.levelUpStore(this.props.level + 1)
                             break;
                         case 40:
                             this.showLevelUp();
                             //this.levelUp(myScore)
-                            this.levelUp();
+                            this.levelUp(600, 20);
                             this.props.scoreUp(myScore);
                             this.props.levelUpStore(this.props.level + 1)
                             break;
@@ -356,6 +376,19 @@ class GameCanvas extends React.Component {
             //Is bubble off the screen? If so, set bubble to "popped"
             if(bubble.bubbleBottom > this.state.gameHeight-100){
                 bubble.popped = true;
+                //If bubble pops at bottom, player loses points
+                //this.props.level > 3
+                if(true){
+                    let lowerScore = this.props.score-2;
+                    //Game over if score goes less than 0
+                    if(lowerScore < 0){
+                        this.setState({
+                            gameOver: true,
+                            playingGame: false
+                        })
+                    }
+                    this.props.scoreDown(lowerScore);
+                }
             }
             if(!this.state.playingGame){
                 bubble.popped =true;
@@ -415,10 +448,11 @@ class GameCanvas extends React.Component {
         })
     }
     //Hide level-up popup
-    hideLevelUp = () => {
+    hideLevelUp = async (makeSpeedUp, moveSpeedUp) => {
+        await this.resetTimers();
         //Set new speeds for bubble creation and movement
-        let newBubbleMakeTime = this.state.makeBubbleSpeed - 350;
-        let newBubbleMoveTime = this.state.moveBubbleSpeed - 25;
+        let newBubbleMakeTime = this.state.makeBubbleSpeed - makeSpeedUp;
+        let newBubbleMoveTime = this.state.moveBubbleSpeed - moveSpeedUp;
         let playing = this.state.playingGame;
 
         this.setState({
@@ -432,6 +466,7 @@ class GameCanvas extends React.Component {
             moveBubbleSpeed: newBubbleMoveTime
         })
     }
+
     //Hide win-game popup
     hideWin = () => {
         this.setState({
@@ -442,12 +477,92 @@ class GameCanvas extends React.Component {
     //Allow continue play on level-up popup by pressing Enter button
     levelPopupEnter = (e) => {
         if(e.key==="Enter"){
-            this.hideLevelUp()
+            this.hideLevelUp(this.state.makeSpeedUp, this.state.moveSpeedUp)
         }
+    }
+
+    playAgainFunc = async() => {
+        //Stop bubbles from being made and moved
+        await this.resetTimers();
+        await this.resetBubbleSpeeds();
+        document.body.onkeydown = this.onArrowDown
+        let currentScreenWidth;
+        let currentScreenHeight;
+        if(window.innerWidth > 700){
+            currentScreenWidth  = window.innerWidth * 0.55;
+        } else {
+            currentScreenWidth = 300;
+        }
+        if(window.innerHeight > 600){
+            currentScreenHeight = window.innerHeight * 0.7;
+        } else {
+            currentScreenHeight = 400;
+        }
+        this.setState({
+            playingGame: true,
+            //Set current screen width
+            gameWidth: currentScreenWidth,
+            //Set current game height
+            gameHeight: currentScreenHeight,
+            //Import unicorn file name and id
+            unicornFile: this.props.unicornFile,
+            unicornId: this.props.unicornId,
+            //Set placement of unicorn
+            unicornStyle: {
+                width: 60,
+                height: 60,
+                position: "absolute",
+                //Top value was originally 280, so half of 600, which was the original height of the game canvas
+                //left value was originally 270, half of the width of the original game canvas
+                top: currentScreenHeight-150,
+                //The left value is the current screen width divided in half, minus half the unicorn's width
+                left: (currentScreenWidth/2) -30
+            },
+            // This is the distance of the top of the unicorn from the top of the canvas
+            unicornTop: currentScreenHeight-150,
+            //Distance of the bottom of the unidorn from the top of the canvas
+            unicornBottom: (currentScreenHeight-150) + 60,
+            //Unicorn's rignt corner from left side of canvas
+            unicornRight: ((currentScreenWidth/2) -30) + 60,
+            //Unicorn's left corner from left side of canvas
+            unicornLeft: (currentScreenWidth/2) -30,
+            //Start making bubbles and moving bubbles
+            creationTimer: this.creationTimer = setInterval(this.makeBubbles, this.state.makeBubbleSpeed),
+            movementTimer: this.movementTimer = setInterval(this.moveBubbles, this.state.moveBubbleSpeed),
+            gameOver: false
+            // makeBubbleSpeed: 3100,
+            // moveBubbleSpeed: 120,
+            // //Increases to these increase speed of bubble creation and movement
+            // makeSpeedUp: 0,
+            // moveSpeedUp: 0
+       })
+        
+        this.props.levelUpStore(1);
+        this.props.scoreUp(0);
+        //Reset Unicorn
+        // this.resetUnicorn();
     }
 
 
     render(){
+        //Set the "play again" link for if the user is logged in or not
+        let playAgain;
+        if(this.props.currentUser.id){
+            playAgain = <Link className="button play-again" to="/pick_unicorn">Play Again?</Link>
+        } else {
+            playAgain = <button className="button play-again" onClick={this.playAgainFunc}>Play Again?</button>
+        }
+        let gameOverPopup;
+        if(this.state.gameOver){
+            gameOverPopup = <div 
+                className="popup" 
+                style={{zIndex: 100}}
+                >
+                <h1>Game Over!</h1>
+                {playAgain}
+                {/* <Link className="button play-again" to="/pick_unicorn">Play Again?</Link> */}
+            </div>
+        }
         let levelPopup;
         let winPopup;
         //Determines whether the "level-up" popup should be visible
@@ -459,7 +574,7 @@ class GameCanvas extends React.Component {
                 onKeyDown={e => this.levelPopupEnter(e)
                 }>
                 <h1>You beat level {this.props.level-1}!</h1>
-                <button className="button" onClick={this.hideLevelUp } autoFocus={true}>Keep Playing</button>
+                <button className="button" onClick={() => this.hideLevelUp(this.state.makeSpeedUp, this.state.moveSpeedUp) } autoFocus={true}>Keep Playing</button>
             </div>
         }
         //Determines whether the "won-game" popup should be visible
@@ -525,6 +640,7 @@ class GameCanvas extends React.Component {
                 <div className="popup-container">
                     {levelPopup}
                     {winPopup}
+                    {gameOverPopup}
                 </div>
             </div>
         )
@@ -541,4 +657,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps, {levelUpStore, scoreUp})(GameCanvas);
+export default connect(mapStateToProps, {levelUpStore, scoreUp, scoreDown})(GameCanvas);
