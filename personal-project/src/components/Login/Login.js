@@ -53,7 +53,7 @@ class Login extends Component {
 
                     <input
                         className="auth-input"
-                        type="text"
+                        type="password"
                         onChange={(e) => {this.setState({password: e.target.value})}} placeholder="Password" 
                         value={this.state.password}/>
 

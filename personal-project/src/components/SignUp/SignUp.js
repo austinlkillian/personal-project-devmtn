@@ -72,7 +72,7 @@ class SignUp extends Component {
                         maxLength="25"/>
                     <input 
                         className="auth-input" 
-                        type="text" 
+                        type="password" 
                         onChange={(e) => {this.setState({password: e.target.value})}} 
                         placeholder="Password" 
                         value={this.state.password}
