@@ -4,15 +4,6 @@ import {connect} from 'react-redux';
 import {levelUpStore} from '../../ducks/reducer'
 import {scoreUp} from '../../ducks/reducer'
 import {scoreDown} from '../../ducks/reducer';
-import orange from '../../images/orange.png'
-import rainbow from '../../images/rainbow.png'
-import pink from '../../images/pink.png'
-import blue from '../../images/blue.png'
-import raspberry from '../../images/raspberry.png'
-import {bubbleLarge} from '../../svg_images'
-import store from '../../ducks/store'
-import {largeUnicorn} from '../../svg_images'
-import {smallUnicorn} from '../../svg_images'
 import {orangeUnicorn} from '../../svg_images'
 import {pinkUnicorn} from '../../svg_images'
 import {rainbowUnicorn} from '../../svg_images'
@@ -103,7 +94,7 @@ class GameCanvas extends React.Component {
 
     moveUp = () => {
         if(this.state.playingGame){
-            if(this.state.unicornTop >= 20){
+            if(this.state.unicornTop >= 10){
                 this.setState({
                     unicornStyle: Object.assign({}, this.state.unicornStyle, {
                         top: this.state.unicornStyle.top - 20
@@ -133,8 +124,17 @@ class GameCanvas extends React.Component {
         document.body.onkeydown = this.onArrowDown
         let currentScreenWidth;
         let currentScreenHeight;
+        let currentUnicornWidth;
+        let currentUnicornHeight;
+        if(window.innerWidth > 500){
+            currentUnicornWidth = 105;
+            currentUnicornHeight = 120;
+        } else {
+            currentUnicornWidth = 77;
+            currentUnicornHeight = 88;
+        }
         if(window.innerWidth > 700){
-            currentScreenWidth  = window.innerWidth * 0.70;
+            currentScreenWidth  = window.innerWidth * 0.60;
         } else if(window.innerWidth < 700 && window.innerWidth > 500){
             currentScreenWidth = window.innerWidth * 0.80;
         } else {
@@ -146,6 +146,8 @@ class GameCanvas extends React.Component {
             currentScreenHeight = 400;
         }
         this.setState({
+            unicornWidth: currentUnicornWidth,
+            unicornHeight: currentUnicornHeight, 
             currentUser: this.props.currentUser,
             //Set current screen width
             gameWidth: currentScreenWidth,
@@ -156,23 +158,23 @@ class GameCanvas extends React.Component {
             unicornId: this.props.unicornId,
             //Set placement of unicorn
             unicornStyle: {
-                // width: 60,
-                // height: 60,
+                width: currentUnicornWidth,
+                height: currentUnicornHeight,
                 position: "absolute",
                 //Top value was originally 280, so half of 600, which was the original height of the game canvas
                 //left value was originally 270, half of the width of the original game canvas
                 top: currentScreenHeight-150,
                 //The left value is the current screen width divided in half, minus half the unicorn's width
-                left: (currentScreenWidth/2) -30
+                left: (currentScreenWidth/2) - (currentUnicornWidth / 2 )
             },
             // This is the distance of the top of the unicorn from the top of the canvas
             unicornTop: currentScreenHeight-150,
             //Distance of the bottom of the unidorn from the top of the canvas
-            unicornBottom: (currentScreenHeight-150) + 60,
+            unicornBottom: (currentScreenHeight-150) + currentUnicornHeight,
             //Unicorn's rignt corner from left side of canvas
-            unicornRight: ((currentScreenWidth/2) -30) + 60,
+            unicornRight: ((currentScreenWidth/2) -(currentUnicornWidth / 2)) + (currentUnicornWidth - 15),
             //Unicorn's left corner from left side of canvas
-            unicornLeft: (currentScreenWidth/2) -30,
+            unicornLeft: ((currentScreenWidth/2) - (currentUnicornWidth / 2)) +10,
             //Start making bubbles and moving bubbles
             creationTimer: this.creationTimer = setInterval(this.makeBubbles, this.state.makeBubbleSpeed),
             movementTimer: this.movementTimer = setInterval(this.moveBubbles, this.state.moveBubbleSpeed)
@@ -183,28 +185,39 @@ class GameCanvas extends React.Component {
     resetUnicorn = (makeSpeed, moveSpeed) => {
         let currentScreenWidth = this.state.gameWidth;
         let currentScreenHeight = this.state.gameHeight;
+        let currentUnicornWidth;
+        let currentUnicornHeight;
+        if(window.innerWidth > 500){
+            currentUnicornWidth = 105;
+            currentUnicornHeight = 120;
+        } else {
+            currentUnicornWidth = 77;
+            currentUnicornHeight = 88;
+        }
         this.setState({
+            unicornWidth: currentUnicornWidth,
+            unicornHeight: currentUnicornHeight, 
             makeSpeedUp:makeSpeed,
             moveSpeedUp: moveSpeed,
             unicornStyle: {
-                // width: 60,
-                // height: 60,
+                width: currentUnicornWidth,
+                height: currentUnicornHeight,
                 position: "absolute",
                 //Top value was originally 280, so half of 600, which was the original height of the game canvas
                 //left value was originally 270, half of the width of the original game canvas
                 top: currentScreenHeight-150,
                 //The left value is the current screen width divided in half, minus half the unicorn's width
-                left: (currentScreenWidth/2) -30
+                left: (currentScreenWidth/2) - (currentUnicornWidth / 2 )
             },
-            playingGame: false,
             // This is the distance of the top of the unicorn from the top of the canvas
             unicornTop: currentScreenHeight-150,
             //Distance of the bottom of the unidorn from the top of the canvas
-            unicornBottom: (currentScreenHeight-150) + 60,
+            unicornBottom: (currentScreenHeight-150) + currentUnicornHeight,
             //Unicorn's rignt corner from left side of canvas
-            unicornRight: ((currentScreenWidth/2) -30) + 60,
+            unicornRight: ((currentScreenWidth/2) -(currentUnicornWidth / 2)) + (currentUnicornWidth - 15),
             //Unicorn's left corner from left side of canvas
-            unicornLeft: (currentScreenWidth/2) -30,
+            unicornLeft: ((currentScreenWidth/2) - (currentUnicornWidth / 2)) +10,
+            playingGame: false,
             bubbles: [],
             creationTimer: null,
             movementTimer: null,
@@ -388,7 +401,7 @@ class GameCanvas extends React.Component {
                 }
             }
             //Is bubble off the screen? If so, set bubble to "popped"
-            if(bubble.bubbleBottom > this.state.gameHeight-100){
+            if(bubble.bubbleBottom > this.state.gameHeight-20){
                 bubble.popped = true;
                 //If bubble pops at bottom, player loses points
                 //this.props.level > 3
@@ -502,6 +515,15 @@ class GameCanvas extends React.Component {
         document.body.onkeydown = this.onArrowDown
         let currentScreenWidth;
         let currentScreenHeight;
+        let currentUnicornWidth;
+        let currentUnicornHeight;
+        if(window.innerWidth > 500){
+            currentUnicornWidth = 105;
+            currentUnicornHeight = 120;
+        } else {
+            currentUnicornWidth = 77;
+            currentUnicornHeight = 88;
+        }
         if(window.innerWidth > 700){
             currentScreenWidth  = window.innerWidth * 0.65;
         } else {
@@ -513,6 +535,8 @@ class GameCanvas extends React.Component {
             currentScreenHeight = 400;
         }
         this.setState({
+            unicornWidth: currentUnicornWidth,
+            unicornHeight: currentUnicornHeight, 
             playingGame: true,
             //Set current screen width
             gameWidth: currentScreenWidth,
@@ -523,23 +547,23 @@ class GameCanvas extends React.Component {
             unicornId: this.props.unicornId,
             //Set placement of unicorn
             unicornStyle: {
-                // width: 60,
-                // height: 60,
+                width: currentUnicornWidth,
+                height: currentUnicornHeight,
                 position: "absolute",
                 //Top value was originally 280, so half of 600, which was the original height of the game canvas
                 //left value was originally 270, half of the width of the original game canvas
                 top: currentScreenHeight-150,
                 //The left value is the current screen width divided in half, minus half the unicorn's width
-                left: (currentScreenWidth/2) -30
+                left: (currentScreenWidth/2) - (currentUnicornWidth / 2 )
             },
             // This is the distance of the top of the unicorn from the top of the canvas
             unicornTop: currentScreenHeight-150,
             //Distance of the bottom of the unidorn from the top of the canvas
-            unicornBottom: (currentScreenHeight-150) + 60,
+            unicornBottom: (currentScreenHeight-150) + currentUnicornHeight,
             //Unicorn's rignt corner from left side of canvas
-            unicornRight: ((currentScreenWidth/2) -30) + 60,
+            unicornRight: ((currentScreenWidth/2) -(currentUnicornWidth / 2)) + (currentUnicornWidth - 15),
             //Unicorn's left corner from left side of canvas
-            unicornLeft: (currentScreenWidth/2) -30,
+            unicornLeft: ((currentScreenWidth/2) - (currentUnicornWidth / 2)) +10,
             //Start making bubbles and moving bubbles
             creationTimer: this.creationTimer = setInterval(this.makeBubbles, this.state.makeBubbleSpeed),
             movementTimer: this.movementTimer = setInterval(this.moveBubbles, this.state.moveBubbleSpeed),
@@ -771,15 +795,15 @@ class GameCanvas extends React.Component {
 
         //Selects which image should be show, based on the unicorn file_name value that was passed to props
         let chosenImgVar;
-        let currentUnicornWidth;
-        let currentUnicornHeight;
-        if(window.innerWidth > 500){
-            currentUnicornWidth = 105;
-            currentUnicornHeight = 120;
-        } else {
-            currentUnicornWidth = 77;
-            currentUnicornHeight = 88;
-        }
+        let currentUnicornWidth = this.state.unicornWidth;
+        let currentUnicornHeight = this.state.unicornHeight;
+        // if(window.innerWidth > 500){
+        //     currentUnicornWidth = 105;
+        //     currentUnicornHeight = 120;
+        // } else {
+        //     currentUnicornWidth = 77;
+        //     currentUnicornHeight = 88;
+        // }
         switch(this.props.unicornFile){
             case ("orange"):
                 chosenImgVar = orangeUnicorn(this.state.unicornStyle, currentUnicornWidth, currentUnicornHeight);

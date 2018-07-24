@@ -61,19 +61,19 @@ class CreateUnicorn extends Component{
         let chosenImgVar;
         switch(file_name){
             case ("orange"):
-                chosenImgVar = orangeUnicorn({}, 195, 222);
+                chosenImgVar = orangeUnicorn({}, 260, 298);
                 break;
             case ("blue"):
-                chosenImgVar = raspberryUnicorn({}, 195, 222);
+                chosenImgVar = raspberryUnicorn({}, 260, 298);
                 break;
             case ("pink"):
-                chosenImgVar = pinkUnicorn({}, 195, 222);
+                chosenImgVar = pinkUnicorn({}, 260, 298);
                 break;
             case ("rainbow"):
-                chosenImgVar = rainbowUnicorn({}, 195, 222);
+                chosenImgVar = rainbowUnicorn({}, 260, 298);
                 break;
             default:
-                chosenImgVar = rainbowUnicorn({}, 195, 222);
+                chosenImgVar = rainbowUnicorn({}, 260, 298);
         }
         return (
             <div onKeyDown={e => this.onEnter(e)}>

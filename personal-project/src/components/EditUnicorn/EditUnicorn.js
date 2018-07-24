@@ -88,23 +88,23 @@ class EditUnicorn extends Component{
         let blueCheck;
         switch(file_name){
             case ("orange"):
-                chosenImgVar = orangeUnicorn({}, 195, 222);
+                chosenImgVar = orangeUnicorn({}, 260, 298);
                 orangeCheck = true;
                 break;
             case ("blue"):
-                chosenImgVar = raspberryUnicorn({}, 195, 222);
+                chosenImgVar = raspberryUnicorn({}, 260, 298);
                 blueCheck = true;
                 break;
             case ("pink"):
-                chosenImgVar = pinkUnicorn({}, 195, 222);
+                chosenImgVar = pinkUnicorn({}, 260, 298);
                 pinkCheck = true;
                 break;
             case ("rainbow"):
-                chosenImgVar = rainbowUnicorn({}, 195, 222);
+                chosenImgVar = rainbowUnicorn({}, 260, 298);
                 rainbowCheck = true;
                 break;
             default:
-                chosenImgVar = rainbowUnicorn({}, 195, 222);
+                chosenImgVar = rainbowUnicorn({}, 260, 298);
         }
         let imageElement;
         if(this.state.file_name){

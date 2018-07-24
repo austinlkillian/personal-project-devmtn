@@ -97,7 +97,8 @@
     //List unicorn styling
     .list-unicorn {
         padding-top: 0px;
-        height: 70vh;
+        height: 90vh;
+        margin-top: 65px;
         
         hr {
             margin-top: 0px;
@@ -106,10 +107,9 @@
         }
     
         .edit {
-            max-height: 15px;
+            max-height: 35px;
             margin-bottom: 0px;
             width: 50px;
-            position: absolute;
             top: 157px;
             right: 8px;
             box-shadow: 0px 1px 2px 2px #C57B57;
@@ -118,13 +118,13 @@
         .list-unicorn-container {
             flex-direction: column;
             align-items: center;
-            height: 80%;
-            margin-bottom: 80px;
+            height: 100%;
+            margin-bottom: 55px;
         
             .image-edit {
-                align-items: flex-start;
+                align-items: center;
                 margin-top: 15px;
-                margin-bottom: 60px;
+                margin-bottom: 0px;
                 position: relative;
             }
         
@@ -135,6 +135,7 @@
         
             .list-unicorn-content {
                 height: 70%;
+                margin-top: 0px;
                 h2 {
                     font-size: 50px;
                     margin-top: 34px;
@@ -160,6 +161,7 @@
         
                     .unicorn-name {
                         margin-top: 0px;
+                        padding-top: 0px;
                         padding-top: 0px;
                         word-wrap: break-word;
                     }
