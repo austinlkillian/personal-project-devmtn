@@ -8,6 +8,10 @@ import rainbow from '../../images/rainbow.png'
 import pink from '../../images/pink.png'
 import blue from '../../images/blue.png'
 import store from '../../ducks/store'
+import {orangeUnicorn} from '../../svg_images'
+import {pinkUnicorn} from '../../svg_images'
+import {rainbowUnicorn} from '../../svg_images'
+import {raspberryUnicorn} from '../../svg_images'
 
 
 class ListUnicorn extends Component{
@@ -31,26 +35,27 @@ class ListUnicorn extends Component{
         let chosenImgVar;
         switch(file_name){
             case ("orange"):
-                chosenImgVar = orange;
+                chosenImgVar = orangeUnicorn({}, 284, 325);
                 break;
             case ("blue"):
-                chosenImgVar = blue;
+                chosenImgVar = raspberryUnicorn({}, 284, 325);
                 break;
             case ("pink"):
-                chosenImgVar = pink;
+                chosenImgVar = pinkUnicorn({}, 284, 325);
                 break;
             case ("rainbow"):
-                chosenImgVar = rainbow;
+                chosenImgVar = rainbowUnicorn({}, 284, 325);
                 break;
             default:
-                chosenImgVar = rainbow;
+                chosenImgVar = rainbowUnicorn({}, 284, 325);
         }
 
         return (
             <div className="list-unicorn">
                 <div className="list-unicorn-container">
                     <div className="image-edit">
-                        <img src={chosenImgVar} alt=""/>
+                        {chosenImgVar}
+                        {/* <img src={chosenImgVar} alt=""/> */}
                         <div className="button edit">
                             <Link to={"/select_unicorn/" + id}>Edit</Link>
                         </div>

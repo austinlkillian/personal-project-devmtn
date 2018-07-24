@@ -5,6 +5,10 @@ import orange from '../../images/orange.png'
 import rainbow from '../../images/rainbow.png'
 import pink from '../../images/pink.png'
 import blue from '../../images/blue.png'
+import {orangeUnicorn} from '../../svg_images'
+import {pinkUnicorn} from '../../svg_images'
+import {rainbowUnicorn} from '../../svg_images'
+import {raspberryUnicorn} from '../../svg_images'
 
 class CreateUnicorn extends Component{
     constructor(){
@@ -57,19 +61,19 @@ class CreateUnicorn extends Component{
         let chosenImgVar;
         switch(file_name){
             case ("orange"):
-                chosenImgVar = orange;
+                chosenImgVar = orangeUnicorn({}, 195, 222);
                 break;
             case ("blue"):
-                chosenImgVar = blue;
+                chosenImgVar = raspberryUnicorn({}, 195, 222);
                 break;
             case ("pink"):
-                chosenImgVar = pink;
+                chosenImgVar = pinkUnicorn({}, 195, 222);
                 break;
             case ("rainbow"):
-                chosenImgVar = rainbow;
+                chosenImgVar = rainbowUnicorn({}, 195, 222);
                 break;
             default:
-                chosenImgVar = rainbow;
+                chosenImgVar = rainbowUnicorn({}, 195, 222);
         }
         return (
             <div onKeyDown={e => this.onEnter(e)}>
@@ -79,21 +83,26 @@ class CreateUnicorn extends Component{
                     <div className="content-main">
                         <div>
                             <div>
-                                <img className="main-image" src={chosenImgVar} alt=""/>
+                                {chosenImgVar}
+                                {/* <img className="main-image" src={chosenImgVar} alt=""/> */}
                             </div>
                             <div className="image-choices">
                                 <div className="thumbnails">
                                     <label htmlFor="rainbow">
-                                        <img className="thumbnail" src={rainbow} alt=""/>
+                                        {rainbowUnicorn({}, 50, 57)}
+                                        {/* <img className="thumbnail" src={rainbow} alt=""/> */}
                                     </label>
                                     <label htmlFor="pink">
-                                        <img className="thumbnail" src={pink} alt=""/>
+                                        {pinkUnicorn({}, 50, 57)}
+                                        {/* <img className="thumbnail" src={pink} alt=""/> */}
                                     </label>
                                     <label htmlFor="orange">
-                                        <img className="thumbnail" src={orange} alt=""/>
+                                        {orangeUnicorn({}, 50, 57)}
+                                        {/* <img className="thumbnail" src={orange} alt=""/> */}
                                     </label>
                                     <label htmlFor="blue">
-                                        <img className="thumbnail" src={blue} alt=""/>
+                                        {raspberryUnicorn({}, 50, 57)}
+                                        {/* <img className="thumbnail" src={blue} alt=""/> */}
                                     </label>
                                 </div>
                                 <div>

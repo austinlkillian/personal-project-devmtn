@@ -1,5 +1,6 @@
 .list-unicorn {
     width: 100%;
+    height: 500px;
     padding-top: 10px;
     
     hr {
@@ -17,28 +18,32 @@
         font-family: $boring;
         font-size: 18px;
         text-align: center;
+        max-height: 40px;
         min-height: 15px;
         width: 75px;
         padding-top: 9px;
-        padding-bottom: 27px;
+        padding-bottom: 15px;
         margin-bottom: 25px;
-        margin-top: 17px;
+        margin-top: 5px;
     }
 
     .list-unicorn-container {
         display: flex;
-        width: 90%;
-        height: 230px;
+        width: 80%;
+        height: 480px;
         margin: 0 auto;
     
         .image-edit {
             display: flex;
             flex-direction: column;
             align-items: center;
+            height: 100%;
+            width: 200px;
         }
     
-        img {
-            margin-top: 20px;
+        svg {
+            margin-top: 0px;
+            width: 260px;
         }
     
         .list-unicorn-content {
@@ -46,11 +51,12 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            width: 90%;
+            width: 70%;
             height: 100%;
+            margin-top: 70px;
             h2 {
                 font-family: $cartoonFont;
-                font-size: 60px;
+                font-size: 75px;
                 margin-top: 25px;
                 padding-top: 10px;
                 padding-bottom: 10px;
