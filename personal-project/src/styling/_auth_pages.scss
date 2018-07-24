@@ -12,6 +12,8 @@
     padding-top: 3%;
     border-radius: 50px;
     box-shadow: 0px 0px 85px 55px $lightSea;
+    margin-top: 120px;
+
     .auth-input {
         padding: 18px;
         width: 230px;
@@ -22,17 +24,14 @@
         outline: none;
         box-shadow: 2px 2px 10px 2px #167686;
     }
+
     .auth-input::placeholder {
         color: pink;
     }
-}
 
-.auth-title {
-    font-family: $unicornFont;
-    font-size: 60px;
-    margin-bottom: 25px;
-}
-
-.auth-submit {
-    
+    .auth-title {
+        font-family: $unicornFont;
+        font-size: 60px;
+        margin-bottom: 25px;
+    }
 }

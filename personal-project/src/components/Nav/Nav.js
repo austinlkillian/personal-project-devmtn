@@ -23,7 +23,7 @@ class Nav extends Component {
         switch(path){
             case "/sign_up":
                 home = <div className="home-link">
-                        <Link to="/"><i class="fas fa-home fa-lg"></i></Link>
+                        <Link to="/"><i className="fas fa-home fa-lg"></i></Link>
                         </div>
                 break;
             case "/login":
@@ -78,22 +78,9 @@ class Nav extends Component {
                     {restart}
                     {logout}
                 </div>
-                
-                {/* <Link to="/">Home</Link> */}
-                {/* Logout link also needs to logout user, not just navigate */}
-                {/* <button onClick={this.logout}>Logout</button> */}
-                {/* <Link to="/restart_game">Restart Game</Link> */}
             </nav>
         )
     }
 }
 
-// function mapStateToProps(state){
-//     return {
-//         username: state.username,
-//         profile_picture: state.profile_picture
-//     }
-// }
-
 export default Nav;
-//export default connect(mapStateToProps)(Nav);

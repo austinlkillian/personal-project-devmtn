@@ -52,10 +52,15 @@ a {
     letter-spacing: 1.1px;
     font-size: 27px;
     width: 140px;
+    min-height: 60px;
     color: white;
     height: 80px;
     background: pink;
     border-radius: 10px;
     margin-top: 35px;
     box-shadow: 0px 2px 5px 5px #167686;
+}
+
+.routes {
+    width: 100%;
 }

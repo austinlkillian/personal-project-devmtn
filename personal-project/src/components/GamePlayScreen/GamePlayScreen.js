@@ -36,7 +36,7 @@ class GamePlayScreen extends Component {
         // console.log(this.state.current_user)
         let unicornFile = this.props.match.params.file_name
         return (
-            <div>
+            <div className="game-play-screen">
                 <Nav {...this.props} currentUnicorn={this.state.current_unicorn}/>
                 <GameCanvas unicornFile={unicornFile} currentUser={this.state.current_user}/>
             </div>

@@ -1,0 +1,208 @@
+@media (max-width: 500px) {
+    .container {
+        border-radius: 0px;
+    }
+    .home-page {
+        max-width: 375px;
+
+        .home-play {
+            position: static;
+            width: 150px;
+            height: 150px;
+            font-size: 55px;
+            margin: 0 auto;
+        }
+
+        .home-auth {
+            width: 110px;
+            position: static;
+            font-size: 22px;
+            margin: 0 auto;
+            margin-top: 22px;
+        }
+    
+        .sign-up {
+            position: static;    
+        }
+    
+        .login {
+            position: static;
+            margin-bottom: 50px;
+        }
+
+        .home-title-text-unicorn {
+            margin: 0 auto;
+            text-align: center;
+            font-size: 65px;
+        }
+
+        .home-title-text-vs {
+            font-size: 25px;
+        }
+        
+        .home-title-text-bubbles {
+            margin: 0 auto;
+            text-align: center;
+            font-size: 75px;
+        }
+    }
+    
+    
+    
+    .home-title {
+        width: 100%;
+        padding-top: 25%;
+    }
+    
+    
+    .home-message {
+        position: static;
+        margin: 0 auto;
+        margin-top: 20px; 
+    }
+
+    .auth-container {
+        margin-top: 20%;
+        .auth-input {
+            width: 200px;
+        }
+    }
+
+    .choose-unicorn-container {
+        padding-top: 20px;
+
+        .title {
+            font-size: 55px;
+        }
+
+        .create-unicorn-btn {
+            width: 170px;
+            font-size: 22px;
+            padding-top: 14px;
+            margin-top: 10px;
+            margin-bottom: 40px;
+        }
+
+        .user-unicorns {
+            box-shadow: 0px 0px 35px 25px $lightSea;
+        }
+    }
+    //Navbar styling
+    .logout-button {
+        margin-right: 80px;
+        margin-left: 23px;
+        font-size: 25px;
+    }
+
+    //List unicorn styling
+    .list-unicorn {
+        padding-top: 0px;
+        height: 70vh;
+        
+        hr {
+            margin-top: 0px;
+            margin-bottom: 0px;
+            padding-bottom: 0px;
+        }
+    
+        .edit {
+            max-height: 15px;
+            margin-bottom: 0px;
+            width: 50px;
+            position: absolute;
+            top: 157px;
+            right: 8px;
+            box-shadow: 0px 1px 2px 2px #C57B57;
+        }
+    
+        .list-unicorn-container {
+            flex-direction: column;
+            align-items: center;
+            height: 80%;
+            margin-bottom: 80px;
+        
+            .image-edit {
+                align-items: flex-start;
+                margin-top: 15px;
+                margin-bottom: 60px;
+                position: relative;
+            }
+        
+            img {
+                margin-top: 0px;
+                width: 100%;
+            }
+        
+            .list-unicorn-content {
+                height: 70%;
+                h2 {
+                    font-size: 50px;
+                    margin-top: 34px;
+                    padding-bottom: 0px;
+                }
+        
+                .play {
+                    width: 220px;
+                    padding-left: 7px;
+                    padding-right: 7px;
+                    padding-top: 3px;
+                    font-size: 32px;
+                    min-height: 100px;
+                    margin-top: 20px;
+                }
+        
+                .list-unicorn-buttons {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    width: 100%;
+                    margin-left: 0px;
+        
+                    .unicorn-name {
+                        margin-top: 0px;
+                        padding-top: 0px;
+                        word-wrap: break-word;
+                    }
+                }
+            }
+        }
+    }
+
+    //Styling for create and edit unicorn pages
+    .format-unicorn {
+        .title {
+            font-size: 50px;
+            margin-top: 25px;
+        }
+
+        .content-main {
+            flex-direction: column;
+            margin-top: 15px;
+            align-items: center;
+        }
+
+        .unicorn-name-input {
+            margin-left: 0;
+        }
+
+        .button {
+            margin-left: 0;
+            margin-top: 20px;
+        }
+
+        .image-choices {
+    
+            .radio {
+                margin: 0px 28px;
+            }
+        }
+    }
+
+    .popup {
+        border-radius: 0px;
+    }
+
+    .popup h1 {
+        font-size: 40px;
+    }
+}

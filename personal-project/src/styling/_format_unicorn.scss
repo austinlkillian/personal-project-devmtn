@@ -17,10 +17,9 @@
             font-family: $boring;
             font-size: 18px;
             text-align: center;
-            height: 10px;
+            max-height: 10px;
             width: 75px;
-            padding-top: 9px;
-            padding-bottom: 27px;
+            padding-bottom: 14px;
             margin-top: 37px;
         }
     }
@@ -48,7 +47,7 @@
         }
 
         .radio {
-            margin: 0px 30px;
+            margin: 0px 28px;
         }
     }
 
@@ -94,6 +93,7 @@
         margin-left: 65px;
         font-size: 40px;
         width: 200px;
+        margin-bottom: 50px;
         
     }
 

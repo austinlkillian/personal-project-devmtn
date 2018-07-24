@@ -53,6 +53,27 @@
         right: 430px;
         top: 540px;
     }
+
+    .home-title-text-unicorn {
+        font-family: $unicornFont;
+        font-size: 120px;
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+        line-height: .7;
+    }
+    
+    .home-title-text-vs {
+        font-family: $plainFont;
+        text-align: center;
+        font-size: 30px;
+        margin-bottom: 8px;
+    }
+    
+    .home-title-text-bubbles {
+        font-family: $cartoonFont;
+        font-size: 120px;
+        text-align: right;
+    }
 }
 
 
@@ -60,7 +81,8 @@
 .home-title {
     width: 60%;
     margin: 0 auto;
-    padding-top: 200px;
+    padding-top: 20%;
+    margin-bottom: 0px;
 }
 
 
@@ -75,25 +97,4 @@
     position: absolute;
     top: 450px;
     left: 300px;
-}
-
-.home-title-text-unicorn {
-    font-family: $unicornFont;
-    font-size: 120px;
-    margin-bottom: 0px;
-    padding-bottom: 0px;
-    line-height: .7;
-}
-
-.home-title-text-vs {
-    font-family: $plainFont;
-    text-align: center;
-    font-size: 30px;
-    margin-bottom: 8px;
-}
-
-.home-title-text-bubbles {
-    font-family: $cartoonFont;
-    font-size: 120px;
-    text-align: right;
 }

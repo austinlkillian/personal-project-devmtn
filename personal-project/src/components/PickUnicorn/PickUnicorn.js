@@ -53,6 +53,7 @@ class PickUnicorn extends Component{
                 <Nav {...this.props} />
                 <div className="choose-unicorn-container">
                     <h1 className="title">Choose Your Unicorn!</h1>
+                    <h1 className="home-title-text-vs or-text">or</h1>
                     <Link to="/create_unicorn" className="button create-unicorn-btn">Create New Unicorn</Link>
                     <hr/>
                     <div className="user-unicorns">

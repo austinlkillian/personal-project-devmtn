@@ -8,6 +8,7 @@ import orange from '../../images/orange.png'
 import rainbow from '../../images/rainbow.png'
 import pink from '../../images/pink.png'
 import blue from '../../images/blue.png'
+import {bubbleLarge} from '../../svg_images'
 import store from '../../ducks/store'
 
 class GameCanvas extends React.Component {
@@ -122,9 +123,11 @@ class GameCanvas extends React.Component {
         let currentScreenWidth;
         let currentScreenHeight;
         if(window.innerWidth > 700){
-            currentScreenWidth  = window.innerWidth * 0.55;
+            currentScreenWidth  = window.innerWidth * 0.65;
+        } else if(window.innerWidth < 700 && window.innerWidth > 500){
+            currentScreenWidth = window.innerWidth * 0.80;
         } else {
-            currentScreenWidth = 300;
+            currentScreenWidth = window.innerWidth;
         }
         if(window.innerHeight > 600){
             currentScreenHeight = window.innerHeight * 0.7;
@@ -209,10 +212,10 @@ class GameCanvas extends React.Component {
      //Create array of bubbles
     makeBubbles = () => {
         let bubbleSize;
-        if(this.state.gameWidth > 600){
-            bubbleSize = 60;
+        if(window.innerWidth > 500){
+            bubbleSize = 85;
         } else {
-            bubbleSize = 40;
+            bubbleSize = 60;
         }
         const column = Math.floor( Math.random() * (this.state.gameWidth - 100))
         this.setState({
@@ -231,11 +234,11 @@ class GameCanvas extends React.Component {
             styling: {
                 position: 'absolute',
                 top: -bubbleSize,
-                left: column,
-                width: bubbleSize,
-                height: bubbleSize,
-                backgroundColor: "aqua",
-                borderRadius: 50
+                left: column
+                // width: bubbleSize,
+                // height: bubbleSize,
+                // backgroundColor: "aqua",
+                // borderRadius: 50
             }
         }
 
@@ -489,7 +492,7 @@ class GameCanvas extends React.Component {
         let currentScreenWidth;
         let currentScreenHeight;
         if(window.innerWidth > 700){
-            currentScreenWidth  = window.innerWidth * 0.55;
+            currentScreenWidth  = window.innerWidth * 0.65;
         } else {
             currentScreenWidth = 300;
         }
@@ -545,6 +548,7 @@ class GameCanvas extends React.Component {
 
 
     render(){
+        
         //Set the "play again" link for if the user is logged in or not
         let playAgain;
         if(this.props.currentUser.id){
@@ -589,9 +593,133 @@ class GameCanvas extends React.Component {
         //Creating bubble elements to display
         let showBubbles;
         showBubbles = this.state.bubbles.map((bubble, index) => {
+            //Select correct bubble SVG for screen size
+            let myBubble;
+            if(window.innerWidth < 500){
+                myBubble = <svg style={bubble.styling} width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0)">
+                <g filter="url(#filter0_dii)">
+                <circle cx="29.5" cy="29.5" r="29.5" transform="translate(1 1)" fill="#FADCDC" fill-opacity="0.6"/>
+                <circle cx="29.5" cy="29.5" r="27.5" transform="translate(1 1)" stroke="#F3EAF4" stroke-width="4"/>
+                <circle cx="29.5" cy="29.5" r="27.5" transform="translate(1 1)" stroke="url(#paint0_linear)" stroke-width="4"/>
+                </g>
+                <g filter="url(#filter1_di)">
+                <path d="M29.121 9.78364C29.121 15.187 22.6021 19.5673 14.5605 19.5673C6.51897 19.5673 1.68202e-06 15.187 1.68202e-06 9.78364C1.68202e-06 4.38029 6.51897 -1.06121e-06 14.5605 -1.06121e-06C22.6021 -1.06121e-06 29.121 4.38029 29.121 9.78364Z" transform="translate(20.6237 38.3325) rotate(-30.6942)" fill="white" fill-opacity="0.05"/>
+                </g>
+                <ellipse cx="5.52676" cy="3.51703" rx="5.52676" ry="3.51703" transform="translate(11.8856 16.8407) rotate(-43.6956)" fill="white"/>
+                <circle cx="1.65085" cy="1.65085" r="1.65085" transform="translate(13.9197 23.5378)" fill="white"/>
+                </g>
+                <defs>
+                <filter id="filter0_dii" x="-44" y="-49" width="108" height="117" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 0"/>
+                <feOffset dy="4"/>
+                <feGaussianBlur stdDeviation="2"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.25 0"/>
+                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 0" result="hardAlpha"/>
+                <feOffset dx="-45" dy="-75"/>
+                <feGaussianBlur stdDeviation="25"/>
+                <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 0.619608 0 0 0 0 0.0980392 0 0 0 0 0.27451 0 0 0 0.25 0"/>
+                <feBlend mode="normal" in2="shape" result="effect2_innerShadow"/>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 0" result="hardAlpha"/>
+                <feOffset dy="4"/>
+                <feGaussianBlur stdDeviation="2"/>
+                <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                <feBlend mode="normal" in2="effect2_innerShadow" result="effect3_innerShadow"/>
+                </filter>
+                <filter id="filter1_di" x="-75.345" y="-71.913" width="226.967" height="222.452" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 0"/>
+                <feOffset/>
+                <feGaussianBlur stdDeviation="50"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"/>
+                <feBlend mode="darken" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 0" result="hardAlpha"/>
+                <feOffset dx="200"/>
+                <feGaussianBlur stdDeviation="10"/>
+                <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.1 0"/>
+                <feBlend mode="normal" in2="shape" result="effect2_innerShadow"/>
+                </filter>
+                <linearGradient id="paint0_linear" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(59) scale(59) rotate(90)">
+                <stop stop-color="white"/>
+                <stop offset="1" stop-color="white" stop-opacity="0"/>
+                </linearGradient>
+                <clipPath id="clip0">
+                <rect width="60" height="60" fill="white"/>
+                </clipPath>
+                </defs>
+                </svg>
+            } else {
+                myBubble = <svg style={bubble.styling} width="85" height="85" viewBox="0 0 85 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0)">
+                <g filter="url(#filter0_dii)">
+                <circle cx="40" cy="40" r="40" transform="translate(2 2)" fill="#FADCDC" fill-opacity="0.6"/>
+                <circle cx="40" cy="40" r="38" transform="translate(2 2)" stroke="#F3EAF4" stroke-width="4"/>
+                <circle cx="40" cy="40" r="38" transform="translate(2 2)" stroke="url(#paint0_linear)" stroke-width="4"/>
+                </g>
+                <g filter="url(#filter1_di)">
+                <path d="M39.4861 13.266C39.4861 20.5925 30.6469 26.5319 19.7431 26.5319C8.83928 26.5319 2.2807e-06 20.5925 2.2807e-06 13.266C2.2807e-06 5.93937 8.83928 -1.43893e-06 19.7431 -1.43893e-06C30.6469 -1.43893e-06 39.4861 5.93937 39.4861 13.266Z" transform="translate(28.6085 52.6204) rotate(-30.6942)" fill="white" fill-opacity="0.05"/>
+                </g>
+                <ellipse cx="7.49392" cy="4.76886" rx="7.49392" ry="4.76886" transform="translate(16.7601 23.4789) rotate(-43.6956)" fill="white"/>
+                <circle cx="2.23844" cy="2.23844" r="2.23844" transform="translate(19.5182 32.5597)" fill="white"/>
+                </g>
+                <defs>
+                <filter id="filter0_dii" x="-43" y="-48" width="129" height="138" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 0"/>
+                <feOffset dy="4"/>
+                <feGaussianBlur stdDeviation="2"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.25 0"/>
+                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 0" result="hardAlpha"/>
+                <feOffset dx="-45" dy="-75"/>
+                <feGaussianBlur stdDeviation="25"/>
+                <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 0.619608 0 0 0 0 0.0980392 0 0 0 0 0.27451 0 0 0 0.25 0"/>
+                <feBlend mode="normal" in2="shape" result="effect2_innerShadow"/>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 0" result="hardAlpha"/>
+                <feOffset dy="4"/>
+                <feGaussianBlur stdDeviation="2"/>
+                <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                <feBlend mode="normal" in2="effect2_innerShadow" result="effect3_innerShadow"/>
+                </filter>
+                <filter id="filter1_di" x="-65.9254" y="-61.2719" width="236.565" height="230.443" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 0"/>
+                <feOffset/>
+                <feGaussianBlur stdDeviation="50"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"/>
+                <feBlend mode="darken" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 0" result="hardAlpha"/>
+                <feOffset dx="200"/>
+                <feGaussianBlur stdDeviation="10"/>
+                <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.1 0"/>
+                <feBlend mode="normal" in2="shape" result="effect2_innerShadow"/>
+                </filter>
+                <linearGradient id="paint0_linear" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(80) scale(80) rotate(90)">
+                <stop stop-color="white"/>
+                <stop offset="1" stop-color="white" stop-opacity="0"/>
+                </linearGradient>
+                <clipPath id="clip0">
+                <rect width="85" height="85" fill="white"/>
+                </clipPath>
+                </defs>
+                </svg>                
+            }
             return (
-                <div key={index} style={bubble.styling} className='bubble'></div>
-                )
+                myBubble
+                //<div key={index} style={bubble.styling} className='bubble'></div>
+            )
         })
 
         let canvasStyle = {
