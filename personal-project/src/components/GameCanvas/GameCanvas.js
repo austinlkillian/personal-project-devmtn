@@ -506,25 +506,6 @@ class GameCanvas extends React.Component {
         })
     }
 
-    //Moves unicorn on user arrow keystrokes
-    onArrowDown = (e) => {
-        //ArrowUp, ArrowDown, ArrowRight, ArrowLeft
-        switch(e.key){
-            case "ArrowUp":
-                this.moveUp();
-                break;
-            case "ArrowDown":
-                this.moveDown();
-                break;
-            case "ArrowRight":
-                this.moveRight();
-                break;
-            case "ArrowLeft":
-                this.moveLeft();
-                break;
-        }
-    }
-
     //Restart button functionality
     restart = () => {
         this.resetUnicorn();
@@ -655,10 +636,107 @@ class GameCanvas extends React.Component {
         // this.resetUnicorn();
     }
 
+    //Moves unicorn on user arrow keystrokes
+    onArrowDown = (e) => {
+        
+        //ArrowUp, ArrowDown, ArrowRight, ArrowLeft
+        switch(e.key){
+            case "ArrowUp":
+                this.moveUp();
+                break;
+            case "ArrowDown":
+                this.moveDown();
+                break;
+            case "ArrowRight":
+                this.moveRight();
+                break;
+            case "ArrowLeft":
+                this.moveLeft();
+                break;
+        }
+    }
+
+    //.container is ALWAYS 145 px from the top of the screen
+    //it's also always centered horizontally, so the horizontal middle of the game is also always the middle of the screen
+    handleTouchStart = (e) => {
+        console.log(e.touches[0].clientX);
+        console.log(e.touches[0].clientY);
+        //x handles the left-right width
+        //starts low on left, gets higher to the right
+        let x = e.touches[0].clientX;
+        //y handles the up-down height
+        //lower at top, higher at bottom
+        let y = e.touches[0].clientY;
+        //
+        let currentScreenWidth = window.innerWidth;
+
+        let gameHeight = this.state.gameHeight;
+        let moveLeft;
+        let moveRight;
+        let moveUp;
+        let moveDown;
+
+        console.log(x, y)
+
+        if(x > currentScreenWidth/2){
+            moveRight = true;
+        }   else if(x < currentScreenWidth/2){
+            moveLeft = true;
+        }
+
+        if(y > (gameHeight/2 + 145)){
+            moveDown = true;
+        } else if (y < (gameHeight/2 + 145)) {
+            moveUp = true;
+        }
+        this.twoMovesAtOnce(moveLeft, moveRight, moveUp, moveDown);
+        // if(moveLeft){
+        //     console.log("Move left")
+        //     this.moveLeft();
+        // }
+        // if(moveRight){
+        //     console.log("Move right")
+        //     this.moveRight();
+        // }
+        // if(moveUp){
+        //     console.log("Move up")
+        //     this.moveUp();
+        // }
+        // if(moveDown){
+        //     console.log("Move down")
+        //     this.moveDown();
+        // }
+    }
+
+    twoMovesAtOnce = async(moveLeft, moveRight, moveUp, moveDown) => {
+        if(moveLeft){
+            console.log("Move left")
+            await this.moveLeft();
+        }
+        if(moveRight){
+            console.log("Move right")
+            await this.moveRight();
+        }
+        if(moveUp){
+            console.log("Move up")
+            this.moveUp();
+        }
+        if(moveDown){
+            console.log("Move down")
+            this.moveDown();
+        }
+    }
+
+    levelUp = async(makeSpeed, moveSpeed) => {
+        await this.resetTimers();
+        this.resetUnicorn(makeSpeed, moveSpeed);
+    }
+
+    handleScreenClick = (e) => {
+        console.log(e)
+    }
 
     render(){
-        console.log(this.state.popLeft, this.state.popBottom)
-        
         let pop = <div style={{width: 50, height: 50, background: "aqua", position: "absolute", left: this.state.popLeft, top: this.state.popBottom}}></div>
         //Set the "play again" link for if the user is logged in or not
         let playAgain;
@@ -896,12 +974,15 @@ class GameCanvas extends React.Component {
             default:
                 chosenImgVar = rainbowUnicorn(this.state.unicornStyle, currentUnicornWidth, currentUnicornHeight);
         }
+
         return(
             <div 
                 className='container' 
                 style={canvasStyle} 
                 //This makes it so you can use the buttons 
                 autoFocus={true}
+                onTouchStart={this.handleTouchStart}
+                onClick={this.handleScreenClick}
             >
                 <h2>Level: {this.props.level} Score {this.props.score}</h2>
                 { showBubbles }
