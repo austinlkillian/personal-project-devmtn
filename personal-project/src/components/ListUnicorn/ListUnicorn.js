@@ -3,10 +3,6 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import {chosenUnicorn} from '../../ducks/reducer'
 import {Link} from 'react-router-dom'
-import orange from '../../images/orange.png'
-import rainbow from '../../images/rainbow.png'
-import pink from '../../images/pink.png'
-import blue from '../../images/blue.png'
 import store from '../../ducks/store'
 import {orangeUnicorn} from '../../svg_images'
 import {pinkUnicorn} from '../../svg_images'

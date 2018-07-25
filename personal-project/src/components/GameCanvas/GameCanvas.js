@@ -58,7 +58,9 @@ class GameCanvas extends React.Component {
             gameHeight: 0,
             //Increases to these increase speed of bubble creation and movement
             makeSpeedUp: 0,
-            moveSpeedUp: 0
+            moveSpeedUp: 0,
+            popLeft: 0,
+            popBottom: 0
         }
     }
 
@@ -317,14 +319,17 @@ class GameCanvas extends React.Component {
                 //Is the bubble within the unicorn's width? If so, bubble is set to popped, and it will get filtered out of the array
                 if((bubble.bubbleRight > unicornLeft && !(bubble.bubbleLeft > unicornRight))){
                      //This is set to true so that the bubble will be filtered out of the array
+                     this.setState({
+                        popLeft: bubble.bubbleLeft,
+                        popBottom: bubble.bubbleBottom
+                     })
                      bubble.popped = true;
                      //Conditional logic to level up and win game
                      //Pull the score from Redux store (access to this data is set up in the mapStateToProps function)
                      let myScore = this.props.score+5;
                      //Depending on the score, level up OR just update the score
-                    switch(myScore){
-                        case 15:
-                            this.showLevelUp();
+                     if((myScore > 19 && myScore < 40) && this.props.level === 1){
+                        this.showLevelUp();
                             //reset unicorn position
                             //First number is "make creation speed increase" for bubbles. Second number is "make movement  speed increase"
                             this.levelUp(900, 75);
@@ -332,76 +337,145 @@ class GameCanvas extends React.Component {
                             this.props.scoreUp(myScore);
                             //update Redux store level's value
                             this.props.levelUpStore(this.props.level + 1);
-                            break;
-                        case 25:
-                            this.showLevelUp();
+                     } else if ((myScore > 39 && myScore < 60) && this.props.level === 2) {
+                        this.showLevelUp();
                             //this.levelUp(myScore)
                             this.levelUp(200, 10);
                             this.props.scoreUp(myScore);
                             this.props.levelUpStore(this.props.level + 1)
-                            break;
-                        case 40:
-                            this.showLevelUp();
+                     } else if ((myScore > 59 && myScore < 80) && this.props.level === 3){
+                        this.showLevelUp();
                             //this.levelUp(myScore)
                             this.levelUp(600, 20);
                             this.props.scoreUp(myScore);
                             this.props.levelUpStore(this.props.level + 1)
-                            break;
-                        case 50:
-                            this.showLevelUp();
+                     } else if ((myScore > 79 && myScore < 100) && this.props.level === 4) {
+                        this.showLevelUp();
                             //this.levelUp(myScore)
                             this.levelUp();
                             this.props.scoreUp(myScore);
                             this.props.levelUpStore(this.props.level + 1)
-                            break;
-                        case 60:
-                            this.showLevelUp();
+                     } else if ((myScore > 99 && myScore < 120) && this.props.level === 5) {
+                        this.showLevelUp();
                             //this.levelUp(myScore)
                             this.levelUp();
                             this.props.scoreUp(myScore);
                             this.props.levelUpStore(this.props.level + 1)
-                            break;
-                        case 70:
-                            this.showLevelUp();
+                     } else if ((myScore > 119 && myScore < 140) && this.props.level === 6) {
+                        this.showLevelUp();
                             //this.levelUp(myScore)
                             this.levelUp();
                             this.props.scoreUp(myScore);
                             this.props.levelUpStore(this.props.level + 1)
-                            break;
-                        case 80:
-                            this.showLevelUp();
+                     } else if ((myScore > 139 && myScore < 160) && this.props.level === 7) {
+                        this.showLevelUp();
                             //this.levelUp(myScore)
                             this.levelUp();
                             this.props.scoreUp(myScore);
                             this.props.levelUpStore(this.props.level + 1)
-                            break;
-                        case 90:
-                            this.showLevelUp();
+                     } else if ((myScore > 159 && myScore < 180) && this.props.level === 8) {
+                        this.showLevelUp();
                             //this.levelUp(myScore)
                             this.levelUp();
                             this.props.scoreUp(myScore);
                             this.props.levelUpStore(this.props.level + 1)
-                            break;
-                        case 100:
-                            this.showLevelUp();
+                    } else if ((myScore > 179 && myScore < 200) && this.props.level === 9) {
+                        this.showLevelUp();
                             //this.levelUp(myScore)
                             this.levelUp();
                             this.props.scoreUp(myScore);
                             this.props.levelUpStore(this.props.level + 1)
-                            break;
-                        case 110:
-                            this.showWin();
+                    } else if(myScore > 199) {
+                        this.showWin();
                             this.levelUp();
                             this.props.scoreUp(myScore);
-                            break;
-                        default:
-                        //If none of the levels are being "won" on this score, JUST increase the score
-                            this.props.scoreUp(myScore);
+                    } else {
+                        this.props.scoreUp(myScore);
                     }
+                    // switch(myScore){
+                    //     case 15:
+                    //         this.showLevelUp();
+                    //         //reset unicorn position
+                    //         //First number is "make creation speed increase" for bubbles. Second number is "make movement  speed increase"
+                    //         this.levelUp(900, 75);
+                    //         //increase Redux store's score value
+                    //         this.props.scoreUp(myScore);
+                    //         //update Redux store level's value
+                    //         this.props.levelUpStore(this.props.level + 1);
+                    //         break;
+                    //     case 25:
+                    //         this.showLevelUp();
+                    //         //this.levelUp(myScore)
+                    //         this.levelUp(200, 10);
+                    //         this.props.scoreUp(myScore);
+                    //         this.props.levelUpStore(this.props.level + 1)
+                    //         break;
+                        // case 40:
+                        //     this.showLevelUp();
+                        //     //this.levelUp(myScore)
+                        //     this.levelUp(600, 20);
+                        //     this.props.scoreUp(myScore);
+                        //     this.props.levelUpStore(this.props.level + 1)
+                        //     break;
+                        // case 50:
+                        //     this.showLevelUp();
+                        //     //this.levelUp(myScore)
+                        //     this.levelUp();
+                        //     this.props.scoreUp(myScore);
+                        //     this.props.levelUpStore(this.props.level + 1)
+                        //     break;
+                        // case 60:
+                        //     this.showLevelUp();
+                        //     //this.levelUp(myScore)
+                        //     this.levelUp();
+                        //     this.props.scoreUp(myScore);
+                        //     this.props.levelUpStore(this.props.level + 1)
+                        //     break;
+                        // case 70:
+                        //     this.showLevelUp();
+                        //     //this.levelUp(myScore)
+                        //     this.levelUp();
+                        //     this.props.scoreUp(myScore);
+                        //     this.props.levelUpStore(this.props.level + 1)
+                        //     break;
+                        // case 80:
+                        //     this.showLevelUp();
+                        //     //this.levelUp(myScore)
+                        //     this.levelUp();
+                        //     this.props.scoreUp(myScore);
+                        //     this.props.levelUpStore(this.props.level + 1)
+                        //     break;
+                        // case 90:
+                        //     this.showLevelUp();
+                        //     //this.levelUp(myScore)
+                        //     this.levelUp();
+                        //     this.props.scoreUp(myScore);
+                        //     this.props.levelUpStore(this.props.level + 1)
+                        //     break;
+                        // case 100:
+                        //     this.showLevelUp();
+                        //     //this.levelUp(myScore)
+                        //     this.levelUp();
+                        //     this.props.scoreUp(myScore);
+                        //     this.props.levelUpStore(this.props.level + 1)
+                        //     break;
+                        // case 110:
+                        //     this.showWin();
+                        //     this.levelUp();
+                        //     this.props.scoreUp(myScore);
+                        //     break;
+                        // default:
+                        //If none of the levels are being "won" on this score, JUST increase the score
+                            //this.props.scoreUp(myScore);
+                    //}
                 }
             }
             //Is bubble off the screen? If so, set bubble to "popped"
             if(bubble.bubbleBottom > this.state.gameHeight-20){
+                this.setState({
+                    popLeft: bubble.bubbleLeft,
+                    popBottom: bubble.bubbleBottom
+                 })
                 bubble.popped = true;
                 //If bubble pops at bottom, player loses points
                 //this.props.level > 3
@@ -583,7 +657,9 @@ class GameCanvas extends React.Component {
 
 
     render(){
+        console.log(this.state.popLeft, this.state.popBottom)
         
+        let pop = <div style={{width: 50, height: 50, background: "aqua", position: "absolute", left: this.state.popLeft, top: this.state.popBottom}}></div>
         //Set the "play again" link for if the user is logged in or not
         let playAgain;
         if(this.props.currentUser.id){
@@ -831,6 +907,7 @@ class GameCanvas extends React.Component {
                 { showBubbles }
                 {/* <img id="unicornImage" src={chosenImgVar} alt="" style={this.state.unicornStyle}/> */}
                 {chosenImgVar}
+                {pop}
                 {/* <button 
                     onClick={this.moveUp} 
                     style={this.state.upBtnStyle}

@@ -1,10 +1,6 @@
 import React, {Component} from 'react';
 import Nav from '../Nav/Nav';
 import axios from 'axios';
-import orange from '../../images/orange.png'
-import rainbow from '../../images/rainbow.png'
-import pink from '../../images/pink.png'
-import blue from '../../images/blue.png'
 import {orangeUnicorn} from '../../svg_images'
 import {pinkUnicorn} from '../../svg_images'
 import {rainbowUnicorn} from '../../svg_images'
