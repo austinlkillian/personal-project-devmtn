@@ -40,30 +40,30 @@ app.use(bodyParser.json());
 // app.get('/user_posts/:user_id', controllers.get_user_posts);
 
 //Auth routes
-app.post('/new_user', controllers.create_user);
+app.post('/auth/new_user', controllers.create_user);
 
-app.post('/login', controllers.login);
+app.post('/auth/login', controllers.login);
 
-app.get('/logout', controllers.logout);
+app.get('/auth/logout', controllers.logout);
 
-app.get('/current_user', controllers.current_user);
+app.get('/api/current_user', controllers.current_user);
 
-app.get('/all_usernames', controllers.all_usernames);
+app.get('/api/all_usernames', controllers.all_usernames);
 
 //Unicorn CRUD
 //New Unicorn
-app.post('/new_unicorn', controllers.create_unicorn)
+app.post('/api/new_unicorn', controllers.create_unicorn)
 //Get user's unicorn list
-app.get('/user_unicorns', controllers.get_user_unicorns);
+app.get('/api/user_unicorns', controllers.get_user_unicorns);
 //Get individual unicorn
-app.get('/select_unicorn/:id' , controllers.get_unicorn)
+app.get('/api/select_unicorn/:id' , controllers.get_unicorn)
 //Edit unicorn
-app.put('/edit_unicorn', controllers.edit_unicorn);
+app.put('/api/edit_unicorn', controllers.edit_unicorn);
 //Delete unicorn
-app.delete('/delete_unicorn/:id', controllers.delete_unicorn);
+app.delete('/api/delete_unicorn/:id', controllers.delete_unicorn);
 
 //Update current game info
-app.put('/edit_user_current_unicorn/:id', controllers.edit_user_current_unicorn);
+app.put('/api/edit_user_current_unicorn/:id', controllers.edit_user_current_unicorn);
 
 
 

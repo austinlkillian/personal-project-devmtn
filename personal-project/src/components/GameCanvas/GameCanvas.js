@@ -51,8 +51,8 @@ class GameCanvas extends React.Component {
             // upBtnStyle: {position: "absolute", bottom: 25, left:260},
             // downBtnStyle: {position: "absolute", bottom: 25, left:300},
             //Set the speed for the setInterval functions that create and move bubbles
-            makeBubbleSpeed: 3100,
-            moveBubbleSpeed: 120,
+            makeBubbleSpeed: 1200,
+            moveBubbleSpeed: 75,
             //This value gets updated using window.innerWidth on componentDidMount
             gameWidth: 0,
             gameHeight: 0,
@@ -338,64 +338,64 @@ class GameCanvas extends React.Component {
                      //Pull the score from Redux store (access to this data is set up in the mapStateToProps function)
                      let myScore = this.props.score+5;
                      //Depending on the score, level up OR just update the score
-                     if((myScore > 19 && myScore < 40) && this.props.level === 1){
+                     if((myScore > 99 && myScore < 200) && this.props.level === 1){
                         this.showLevelUp();
                             //reset unicorn position
                             //First number is "make creation speed increase" for bubbles. Second number is "make movement  speed increase"
-                            this.levelUp(900, 75);
+                            this.levelUp(100, 25);
                             //increase Redux store's score value
                             this.props.scoreUp(myScore);
                             //update Redux store level's value
                             this.props.levelUpStore(this.props.level + 1);
-                     } else if ((myScore > 39 && myScore < 60) && this.props.level === 2) {
+                     } else if ((myScore > 199 && myScore < 300) && this.props.level === 2) {
                         this.showLevelUp();
                             //this.levelUp(myScore)
                             this.levelUp(200, 10);
                             this.props.scoreUp(myScore);
                             this.props.levelUpStore(this.props.level + 1)
-                     } else if ((myScore > 59 && myScore < 80) && this.props.level === 3){
+                     } else if ((myScore > 299 && myScore < 400) && this.props.level === 3){
                         this.showLevelUp();
                             //this.levelUp(myScore)
-                            this.levelUp(600, 20);
+                            this.levelUp(-550, 20);
                             this.props.scoreUp(myScore);
                             this.props.levelUpStore(this.props.level + 1)
-                     } else if ((myScore > 79 && myScore < 100) && this.props.level === 4) {
-                        this.showLevelUp();
-                            //this.levelUp(myScore)
-                            this.levelUp();
-                            this.props.scoreUp(myScore);
-                            this.props.levelUpStore(this.props.level + 1)
-                     } else if ((myScore > 99 && myScore < 120) && this.props.level === 5) {
+                     } else if ((myScore > 399 && myScore < 500) && this.props.level === 4) {
                         this.showLevelUp();
                             //this.levelUp(myScore)
                             this.levelUp();
                             this.props.scoreUp(myScore);
                             this.props.levelUpStore(this.props.level + 1)
-                     } else if ((myScore > 119 && myScore < 140) && this.props.level === 6) {
+                     } else if ((myScore > 499 && myScore < 600) && this.props.level === 5) {
                         this.showLevelUp();
                             //this.levelUp(myScore)
                             this.levelUp();
                             this.props.scoreUp(myScore);
                             this.props.levelUpStore(this.props.level + 1)
-                     } else if ((myScore > 139 && myScore < 160) && this.props.level === 7) {
+                     } else if ((myScore > 599 && myScore < 700) && this.props.level === 6) {
                         this.showLevelUp();
                             //this.levelUp(myScore)
                             this.levelUp();
                             this.props.scoreUp(myScore);
                             this.props.levelUpStore(this.props.level + 1)
-                     } else if ((myScore > 159 && myScore < 180) && this.props.level === 8) {
+                     } else if ((myScore > 699 && myScore < 800) && this.props.level === 7) {
                         this.showLevelUp();
                             //this.levelUp(myScore)
                             this.levelUp();
                             this.props.scoreUp(myScore);
                             this.props.levelUpStore(this.props.level + 1)
-                    } else if ((myScore > 179 && myScore < 200) && this.props.level === 9) {
+                     } else if ((myScore > 799 && myScore < 900) && this.props.level === 8) {
                         this.showLevelUp();
                             //this.levelUp(myScore)
                             this.levelUp();
                             this.props.scoreUp(myScore);
                             this.props.levelUpStore(this.props.level + 1)
-                    } else if(myScore > 199) {
+                    } else if ((myScore > 899 && myScore < 1000) && this.props.level === 9) {
+                        this.showLevelUp();
+                            //this.levelUp(myScore)
+                            this.levelUp();
+                            this.props.scoreUp(myScore);
+                            this.props.levelUpStore(this.props.level + 1)
+                    } else if(myScore > 999) {
                         this.showWin();
                             this.levelUp();
                             this.props.scoreUp(myScore);
@@ -490,7 +490,7 @@ class GameCanvas extends React.Component {
                 //If bubble pops at bottom, player loses points
                 //this.props.level > 3
                 if(true){
-                    let lowerScore = this.props.score-2;
+                    let lowerScore = this.props.score-3;
                     //Game over if score goes less than 0
                     if(lowerScore < 0){
                         this.setState({

@@ -15,18 +15,18 @@ class SignUp extends Component {
 
     newUser = () => {
         let {username, password} = this.state;
-        axios.get('/all_usernames')
+        axios.get('/api/all_usernames')
             .then(usernames => {
                 let nameArray = usernames.data.map(val => {
                     return val.username
                 })
                 //Check to see if username already exists in the database
                 if(nameArray.indexOf(username) === -1){
-                    axios.post('/new_user', {username: username, password: password})
+                    axios.post('/auth/new_user', {username: username, password: password})
                         .then(response => {
                             //Create a single default unicorn that all users have access to
                             let newUserId = response.data[0].id;
-                            axios.post('/new_unicorn', {name: "Bubbles", file_name: "rainbow", user_id: newUserId})
+                            axios.post('/api/new_unicorn', {name: "Bubbles", file_name: "rainbow", user_id: newUserId})
                                 .then( response => {
                         //Navigate back to the "Pick Your Unicorn" page
                                     this.props.history.push('/pick_unicorn')

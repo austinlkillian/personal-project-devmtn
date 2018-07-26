@@ -19,7 +19,7 @@ class EditUnicorn extends Component{
 
     componentDidMount(){
         //Get current user info
-        axios.get('/current_user')
+        axios.get('/api/current_user')
             .then(res => {
                 //This object contains all the data for the current user
                 if(res.data[0]){
@@ -30,7 +30,7 @@ class EditUnicorn extends Component{
             })
             .catch(err => {console.log(err)})
         //Get current chosen unicorn
-        axios.get('/select_unicorn/' + parseInt(this.props.match.params.id))
+        axios.get('/api/select_unicorn/' + parseInt(this.props.match.params.id))
             .then(unicorn => {
                 this.setState({
                     currentUnicorn: unicorn.data[0],
@@ -46,7 +46,7 @@ class EditUnicorn extends Component{
 
     editUnicorn = () => {
         let {name, file_name, unicornId} = this.state;
-        axios.put('/edit_unicorn', {name: name, file_name: file_name, id: unicornId})
+        axios.put('/api/edit_unicorn', {name: name, file_name: file_name, id: unicornId})
             .then( response => {
                 this.props.history.push('/pick_unicorn')
             })
@@ -55,7 +55,7 @@ class EditUnicorn extends Component{
 
     deleteUnicorn = () => {
         let {unicornId} = this.state;
-        axios.delete('/delete_unicorn/' + unicornId)
+        axios.delete('/api/delete_unicorn/' + unicornId)
             .then(
                 this.props.history.push("/pick_unicorn")
             )

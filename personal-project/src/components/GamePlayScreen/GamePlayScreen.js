@@ -16,10 +16,10 @@ class GamePlayScreen extends Component {
     componentDidMount(){
         let unicornId;
         let currentUnicorn;
-        axios.get('/current_user')
+        axios.get('/api/current_user')
             .then(user => {
                 unicornId = user.data[0].current_unicorn
-                axios.get('/select_unicorn/' + unicornId)
+                axios.get('/api/select_unicorn/' + unicornId)
                     .then(unicorn => {
                         currentUnicorn = unicorn.data[0]
                         this.setState({

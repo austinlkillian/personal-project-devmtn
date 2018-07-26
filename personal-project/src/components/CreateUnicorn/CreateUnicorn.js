@@ -17,7 +17,7 @@ class CreateUnicorn extends Component{
     }
 
     componentDidMount(){
-        axios.get('/current_user')
+        axios.get('/api/current_user')
         .then(res => {
             //This object contains all the data for the current user
             if(res.data[0]){
@@ -31,7 +31,7 @@ class CreateUnicorn extends Component{
 
     newUnicorn = () => {
         let {name, file_name, currentUser} = this.state;
-        axios.post('/new_unicorn', {name: name, file_name: file_name, user_id: currentUser.id})
+        axios.post('/api/new_unicorn', {name: name, file_name: file_name, user_id: currentUser.id})
             .then( response => {
                 this.props.history.push('/pick_unicorn')
             })

@@ -5,7 +5,7 @@ import axios from 'axios'
 
 class Nav extends Component {
     logout = () => {
-        axios.get('/logout')
+        axios.get('/auth/logout')
             .then(
                 this.props.history.push("/")
             )

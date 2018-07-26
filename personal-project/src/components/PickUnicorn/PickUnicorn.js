@@ -16,7 +16,7 @@ class PickUnicorn extends Component{
 
     componentDidMount(){
         //Gets info for current user
-        axios.get('/current_user')
+        axios.get('/api/current_user')
             .then(res => {
              //This object contains all the data for the current user
                 if(res.data[0]){
@@ -27,7 +27,7 @@ class PickUnicorn extends Component{
             })
             .catch(err => {console.log(err)})
         //Pulls unicorn list for this specific user
-        axios.get('/user_unicorns')
+        axios.get('/api/user_unicorns')
             .then(unicorns => {
                 let copyArr = this.state.unicornList.map(unicorn => unicorn);
                 copyArr.push(...unicorns.data)

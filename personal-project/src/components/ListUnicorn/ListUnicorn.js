@@ -17,7 +17,7 @@ class ListUnicorn extends Component{
         //Pass the currently chosen unicorn's file_name value to Redux store
         this.props.chosenUnicorn(fileName)
         console.log(fileName)
-        axios.put('/edit_user_current_unicorn/' + this.props.id)
+        axios.put('/api/edit_user_current_unicorn/' + this.props.id)
             .then(
                 this.props.history.push('/play_game/' + fileName)
             )
