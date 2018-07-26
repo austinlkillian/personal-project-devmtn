@@ -11,6 +11,8 @@ const bcrypt = require('bcrypt-nodejs');
 
 const app = express();
 
+app.use( express.static( `${__dirname}/../build` ) );
+
 let {
     SERVER_PORT,
     CONNECTION_STRING,
