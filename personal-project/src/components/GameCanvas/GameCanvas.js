@@ -60,7 +60,9 @@ class GameCanvas extends React.Component {
             makeSpeedUp: 0,
             moveSpeedUp: 0,
             popLeft: 0,
-            popBottom: 0
+            popBottom: 0,
+            popBubble: false,
+            poppedBubbles: []
         }
     }
 
@@ -319,9 +321,17 @@ class GameCanvas extends React.Component {
                 //Is the bubble within the unicorn's width? If so, bubble is set to popped, and it will get filtered out of the array
                 if((bubble.bubbleRight > unicornLeft && !(bubble.bubbleLeft > unicornRight))){
                      //This is set to true so that the bubble will be filtered out of the array
+                     let bubbleCoordinates = {
+                         left: bubble.bubbleLeft,
+                         bottom: bubble.bubbleBottom
+                     }
+                     let newPoppedArray = this.state.poppedBubbles.map(val => val);
+                     newPoppedArray.push(bubbleCoordinates);
                      this.setState({
                         popLeft: bubble.bubbleLeft,
-                        popBottom: bubble.bubbleBottom
+                        popBottom: bubble.bubbleBottom,
+                        popBubble: true,
+                        poppedBubbles: newPoppedArray
                      })
                      bubble.popped = true;
                      //Conditional logic to level up and win game
@@ -638,7 +648,7 @@ class GameCanvas extends React.Component {
 
     //Moves unicorn on user arrow keystrokes
     onArrowDown = (e) => {
-        
+
         //ArrowUp, ArrowDown, ArrowRight, ArrowLeft
         switch(e.key){
             case "ArrowUp":
@@ -656,11 +666,21 @@ class GameCanvas extends React.Component {
         }
     }
 
+    // // This is the distance of the top of the unicorn from the top of the canvas
+    // unicornTop: 280,
+    // //Distance of the bottom of the unidorn from the top of the canvas
+    // unicornBottom: 340,
+    // //Unicorn's rignt corner from left side of canvas
+    // unicornRight:330,
+    // //Unicorn's left corner from left side of canvas
+    // unicornLeft:270,
+    // //These values are
+
     //.container is ALWAYS 145 px from the top of the screen
     //it's also always centered horizontally, so the horizontal middle of the game is also always the middle of the screen
     handleTouchStart = (e) => {
         console.log(e.touches[0].clientX);
-        console.log(e.touches[0].clientY);
+        console.log("Y up-down coordinate:" + e.touches[0].clientY);
         //x handles the left-right width
         //starts low on left, gets higher to the right
         let x = e.touches[0].clientX;
@@ -676,20 +696,25 @@ class GameCanvas extends React.Component {
         let moveUp;
         let moveDown;
 
+        let unicornTopCoordinates = this.state.unicornTop + 140;
+        let unicornBottomCoordinates = this.state.unicornTop + 90 + this.state.unicornHeight;
+        let unicornLeftCoordinates = ((window.innerWidth - this.state.gameWidth)/2) + this.state.unicornLeft -60;
+        let unicornRightCoordinates = ((window.innerWidth - this.state.gameWidth)/2) + this.state.unicornLeft + this.state.unicornWidth - 100;
+
         console.log(x, y)
 
-        if(x > currentScreenWidth/2){
+        if(x > unicornRightCoordinates){
             moveRight = true;
-        }   else if(x < currentScreenWidth/2){
+        }   else if(x < unicornLeftCoordinates){
             moveLeft = true;
         }
 
-        if(y > (gameHeight/2 + 145)){
+        if(y > unicornBottomCoordinates){
             moveDown = true;
-        } else if (y < (gameHeight/2 + 145)) {
+        } else if (y < unicornTopCoordinates) {
             moveUp = true;
         }
-        this.twoMovesAtOnce(moveLeft, moveRight, moveUp, moveDown);
+        this.twoMovesAtOnce(moveLeft, moveRight, moveUp, moveDown, x, y, unicornTopCoordinates, unicornBottomCoordinates, unicornLeftCoordinates, unicornRightCoordinates);
         // if(moveLeft){
         //     console.log("Move left")
         //     this.moveLeft();
@@ -708,22 +733,33 @@ class GameCanvas extends React.Component {
         // }
     }
 
-    twoMovesAtOnce = async(moveLeft, moveRight, moveUp, moveDown) => {
-        if(moveLeft){
-            console.log("Move left")
-            await this.moveLeft();
-        }
-        if(moveRight){
-            console.log("Move right")
-            await this.moveRight();
-        }
-        if(moveUp){
-            console.log("Move up")
+    twoMovesAtOnce = async(moveLeft, moveRight, moveUp, moveDown, x, y, unicornTopCoordinates, unicornBottomCoordinates, unicornLeftCoordinates, unicornRightCoordinates) => {
+        console.log("Unicorn top coordinates:" + unicornTopCoordinates)
+        if(moveLeft && (y < unicornBottomCoordinates && y > unicornTopCoordinates)){
+            this.moveLeft();
+        } else if (moveRight && (y < unicornBottomCoordinates && y > unicornTopCoordinates)) {
+            this.moveRight()
+        } else if (moveUp && (x > unicornLeftCoordinates && x < unicornRightCoordinates)) {
             this.moveUp();
-        }
-        if(moveDown){
-            console.log("Move down")
+        } else if (moveDown && (x > unicornLeftCoordinates && x < unicornRightCoordinates)) {
             this.moveDown();
+        } else {
+            if(moveLeft){
+                console.log("Move left")
+                await this.moveLeft();
+            }
+            if(moveRight){
+                console.log("Move right")
+                await this.moveRight();
+            }
+            if(moveUp){
+                console.log("Move up")
+                this.moveUp();
+            }
+            if(moveDown){
+                console.log("Move down")
+                this.moveDown();
+            }
         }
     }
 
@@ -736,8 +772,66 @@ class GameCanvas extends React.Component {
         console.log(e)
     }
 
+    bubblePop = () => {
+        console.log( 'pop!' )
+        return <div 
+        
+        style={{
+            position: "absolute", 
+            left: this.state.popLeft-30, 
+            top: this.state.popBottom-40
+        }}
+        className="bubble-pop"
+    >
+        <div className="pop1"></div>
+        <div className="pop2"></div>
+        <div className="pop3"></div>
+        <div className="pop4"></div>
+        <div className="pop5"></div>
+        <div className="pop6"></div>
+    </div>
+    }
+
     render(){
-        let pop = <div style={{width: 50, height: 50, background: "aqua", position: "absolute", left: this.state.popLeft, top: this.state.popBottom}}></div>
+        let poppedArray = this.state.poppedBubbles.map((val, index) => {
+            return <div
+            key={index}
+            style={{
+                position: "absolute",
+                left: val.left-30,
+                top: val.bottom-40
+            }}
+            className="bubble-pop"
+        >
+            <div className="pop1"></div>
+            <div className="pop2"></div>
+            <div className="pop3"></div>
+            <div className="pop4"></div>
+            <div className="pop5"></div>
+            <div className="pop6"></div>
+        </div>
+        })
+        // let pop;
+        // if(this.state.popBubble){
+        //     pop = this.bubblePop();
+        //     // pop = <div style={{height:"20px",width:"20px",position: "absolute", left: this.state.popLeft, top: this.state.popBottom, background:"red"}}/>
+        //     // pop = <div 
+        //     //     style={{
+        //     //         position: "absolute", 
+        //     //         left: this.state.popLeft, 
+        //     //         top: this.state.popBottom
+        //     //     }}
+        //     //     className="bubble-pop"
+        //     // >
+        //     //     <div className="pop1"></div>
+        //     //     <div className="pop2"></div>
+        //     //     <div className="pop3"></div>
+        //     //     <div className="pop4"></div>
+        //     //     <div className="pop5"></div>
+        //     //     <div className="pop6"></div>
+        //     // </div>
+        // }
+         
         //Set the "play again" link for if the user is logged in or not
         let playAgain;
         if(this.props.currentUser.id){
@@ -988,7 +1082,7 @@ class GameCanvas extends React.Component {
                 { showBubbles }
                 {/* <img id="unicornImage" src={chosenImgVar} alt="" style={this.state.unicornStyle}/> */}
                 {chosenImgVar}
-                {pop}
+                {poppedArray}
                 {/* <button 
                     onClick={this.moveUp} 
                     style={this.state.upBtnStyle}
