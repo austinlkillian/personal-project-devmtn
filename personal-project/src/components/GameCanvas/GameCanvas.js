@@ -138,7 +138,9 @@ class GameCanvas extends React.Component {
             currentUnicornHeight = 88;
         }
         if(window.innerWidth > 700){
-            currentScreenWidth  = window.innerWidth * 0.50;
+            currentScreenWidth  = window.innerWidth * 0.47;
+        } else if (window.innerWidth < 700 && window.innerWidth > 450){
+            currentScreenWidth = window.innerWidth * 0.70
         } else {
             currentScreenWidth = window.innerWidth;
         }
@@ -372,28 +374,55 @@ class GameCanvas extends React.Component {
                      let myScore = this.props.score+scoreUp;
                      //Depending on the score, level up OR just update the score
                      if((myScore > 99 && myScore < 200) && this.props.level === 1){
-                        this.showLevelUp();
+                            let makeChange;
+                            let moveChange;
+                            if(window.innerWidth < 700){
+                                makeChange = 150;
+                                moveChange = 25;
+                            } else {
+                                makeChange = 100;
+                                moveChange = 15;
+                            }
+                            this.showLevelUp();
                             //reset unicorn position
                             //First number is "make creation speed increase" for bubbles. Second number is "make movement  speed increase"
-                            this.levelUp(150, 25);
+                            this.levelUp(makeChange, moveChange);
                             //increase Redux store's score value
                             this.props.scoreUp(myScore);
                             //update Redux store level's value
                             this.props.levelUpStore(this.props.level + 1);
                      } else if ((myScore > 199 && myScore < 300) && this.props.level === 2) {
-                        this.showLevelUp();
+                            let makeChange;
+                            let moveChange;
+                            if(window.innerWidth < 700){
+                                makeChange = 710;
+                                moveChange = -10;
+                            } else {
+                                makeChange = 590;
+                                moveChange = -10;
+                            }
+                            this.showLevelUp();
                             //this.levelUp(myScore)
-                            this.levelUp(710, -10);
+                            this.levelUp(makeChange, moveChange);
                             this.props.scoreUp(myScore);
                             this.props.levelUpStore(this.props.level + 1)
                      } else if ((myScore > 299 && myScore < 400) && this.props.level === 3){
-                        this.showLevelUp();
+                            let makeChange;
+                            let moveChange;
+                            if(window.innerWidth < 700){
+                                makeChange = -400;
+                                moveChange = 30;
+                            } else {
+                                makeChange = -600;
+                                moveChange = 45;
+                            }
+                            this.showLevelUp();
                             //this.levelUp(myScore)
-                            this.levelUp(-400, 30);
+                            this.levelUp(makeChange, moveChange);
                             this.props.scoreUp(myScore);
                             this.props.levelUpStore(this.props.level + 1)
                      } else if ((myScore > 399 && myScore < 500) && this.props.level === 4) {
-                        this.showLevelUp();
+                            this.showLevelUp();
                             //this.levelUp(myScore)
                             this.levelUp();
                             this.props.scoreUp(myScore);
@@ -623,7 +652,9 @@ class GameCanvas extends React.Component {
             currentUnicornHeight = 88;
         }
         if(window.innerWidth > 700){
-            currentScreenWidth  = window.innerWidth * 0.50;
+            currentScreenWidth  = window.innerWidth * 0.47;
+        } else if (window.innerWidth < 700 && window.innerWidth > 450){
+            currentScreenWidth = window.innerWidth * 0.70
         } else {
             currentScreenWidth = window.innerWidth;
         }

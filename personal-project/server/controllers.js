@@ -34,6 +34,7 @@ module.exports = {
             });
         })
     },
+    
     login: (req, res) => {
         const dbInstance = req.app.get('db');
         const {username, password} = req.body;
