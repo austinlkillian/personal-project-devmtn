@@ -4,7 +4,7 @@
     top: 5px;
     left: 45px;
     transform: rotate(90deg);
-    animation: pop1 0.2s linear;
+    animation: pop1 0.3s linear;
   }
   
   
@@ -14,7 +14,7 @@
     top: 28px;
     left: 75px;
     transform: rotate(-35deg);
-    animation: pop2 0.2s linear 1;
+    animation: pop2 0.3s linear 1;
     
   }
   
@@ -51,7 +51,7 @@
     top: 28px;
     left: 15px;
     transform: rotate(35deg);
-    animation: pop6 0.4s linear 1;
+    animation: pop6 0.3s linear 1;
   }
 
   @keyframes pop1 {

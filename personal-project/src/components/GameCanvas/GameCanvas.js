@@ -696,10 +696,10 @@ class GameCanvas extends React.Component {
         let moveUp;
         let moveDown;
 
-        let unicornTopCoordinates = this.state.unicornTop + 140;
-        let unicornBottomCoordinates = this.state.unicornTop + 90 + this.state.unicornHeight;
-        let unicornLeftCoordinates = ((window.innerWidth - this.state.gameWidth)/2) + this.state.unicornLeft -60;
-        let unicornRightCoordinates = ((window.innerWidth - this.state.gameWidth)/2) + this.state.unicornLeft + this.state.unicornWidth - 100;
+        let unicornTopCoordinates = this.state.unicornTop + 130;
+        let unicornBottomCoordinates = this.state.unicornTop + 130 + this.state.unicornHeight;
+        let unicornLeftCoordinates = ((window.innerWidth - this.state.gameWidth)/2) + this.state.unicornLeft;
+        let unicornRightCoordinates = ((window.innerWidth - this.state.gameWidth)/2) + this.state.unicornLeft + this.state.unicornWidth;
 
         console.log(x, y)
 
