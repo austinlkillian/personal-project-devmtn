@@ -51,7 +51,7 @@ class GameCanvas extends React.Component {
             // upBtnStyle: {position: "absolute", bottom: 25, left:260},
             // downBtnStyle: {position: "absolute", bottom: 25, left:300},
             //Set the speed for the setInterval functions that create and move bubbles
-            makeBubbleSpeed: 1200,
+            makeBubbleSpeed: 1100,
             moveBubbleSpeed: 75,
             //This value gets updated using window.innerWidth on componentDidMount
             gameWidth: 0,
@@ -138,16 +138,14 @@ class GameCanvas extends React.Component {
             currentUnicornHeight = 88;
         }
         if(window.innerWidth > 700){
-            currentScreenWidth  = window.innerWidth * 0.60;
-        } else if(window.innerWidth < 700 && window.innerWidth > 500){
-            currentScreenWidth = window.innerWidth * 0.80;
+            currentScreenWidth  = window.innerWidth * 0.50;
         } else {
             currentScreenWidth = window.innerWidth;
         }
         if(window.innerHeight > 600){
             currentScreenHeight = window.innerHeight * 0.7;
         } else {
-            currentScreenHeight = 400;
+            currentScreenHeight = window.innerHeight;
         }
         this.setState({
             unicornWidth: currentUnicornWidth,
@@ -285,8 +283,8 @@ class GameCanvas extends React.Component {
     resetBubbleSpeeds = () => {
         this.setState({
             //Set the speed for the setInterval functions that create and move bubbles
-            makeBubbleSpeed: 3100,
-            moveBubbleSpeed: 120,
+            makeBubbleSpeed: 1200,
+            moveBubbleSpeed: 70,
             //Increases to these increase speed of bubble creation and movement
             makeSpeedUp: 0,
             moveSpeedUp: 0
@@ -336,13 +334,48 @@ class GameCanvas extends React.Component {
                      bubble.popped = true;
                      //Conditional logic to level up and win game
                      //Pull the score from Redux store (access to this data is set up in the mapStateToProps function)
-                     let myScore = this.props.score+5;
+                     let scoreUp;
+                     switch(this.props.level){
+                        case 1:
+                            scoreUp = 5;
+                            break;
+                        case 2:
+                            scoreUp = 5;
+                            break;
+                        case 3:
+                            scoreUp = 3;
+                            break;
+                        case 4:
+                            scoreUp = 5;
+                            break;
+                        case 5:
+                            scoreUp = 5;
+                            break;
+                        case 6:
+                            scoreUp = 5;
+                            break;
+                        case 7:
+                            scoreUp = 5;
+                            break;
+                        case 8:
+                            scoreUp = 5;
+                            break;
+                        case 9:
+                            scoreUp = 5;
+                            break;
+                        case 10:
+                            scoreUp = 5;
+                            break;
+                        default:
+                            scoreUp = 5;
+                     }
+                     let myScore = this.props.score+scoreUp;
                      //Depending on the score, level up OR just update the score
                      if((myScore > 99 && myScore < 200) && this.props.level === 1){
                         this.showLevelUp();
                             //reset unicorn position
                             //First number is "make creation speed increase" for bubbles. Second number is "make movement  speed increase"
-                            this.levelUp(100, 25);
+                            this.levelUp(150, 25);
                             //increase Redux store's score value
                             this.props.scoreUp(myScore);
                             //update Redux store level's value
@@ -350,13 +383,13 @@ class GameCanvas extends React.Component {
                      } else if ((myScore > 199 && myScore < 300) && this.props.level === 2) {
                         this.showLevelUp();
                             //this.levelUp(myScore)
-                            this.levelUp(200, 10);
+                            this.levelUp(710, -10);
                             this.props.scoreUp(myScore);
                             this.props.levelUpStore(this.props.level + 1)
                      } else if ((myScore > 299 && myScore < 400) && this.props.level === 3){
                         this.showLevelUp();
                             //this.levelUp(myScore)
-                            this.levelUp(-550, 20);
+                            this.levelUp(-400, 30);
                             this.props.scoreUp(myScore);
                             this.props.levelUpStore(this.props.level + 1)
                      } else if ((myScore > 399 && myScore < 500) && this.props.level === 4) {
@@ -590,15 +623,16 @@ class GameCanvas extends React.Component {
             currentUnicornHeight = 88;
         }
         if(window.innerWidth > 700){
-            currentScreenWidth  = window.innerWidth * 0.65;
+            currentScreenWidth  = window.innerWidth * 0.50;
         } else {
-            currentScreenWidth = 300;
+            currentScreenWidth = window.innerWidth;
         }
         if(window.innerHeight > 600){
             currentScreenHeight = window.innerHeight * 0.7;
         } else {
-            currentScreenHeight = 400;
+            currentScreenHeight = window.innerHeight;
         }
+        
         this.setState({
             unicornWidth: currentUnicornWidth,
             unicornHeight: currentUnicornHeight, 
@@ -696,8 +730,8 @@ class GameCanvas extends React.Component {
         let moveUp;
         let moveDown;
 
-        let unicornTopCoordinates = this.state.unicornTop + 130;
-        let unicornBottomCoordinates = this.state.unicornTop + 130 + this.state.unicornHeight;
+        let unicornTopCoordinates = this.state.unicornTop + 70;
+        let unicornBottomCoordinates = this.state.unicornTop + 70 + this.state.unicornHeight;
         let unicornLeftCoordinates = ((window.innerWidth - this.state.gameWidth)/2) + this.state.unicornLeft;
         let unicornRightCoordinates = ((window.innerWidth - this.state.gameWidth)/2) + this.state.unicornLeft + this.state.unicornWidth;
 

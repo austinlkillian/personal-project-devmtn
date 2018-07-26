@@ -22,11 +22,9 @@ class ListUnicorn extends Component{
                 this.props.history.push('/play_game/' + fileName)
             )
             .catch(err => {console.log(err)});
-        
     }
 
     render(){
-        console.log(store.getState())
         let {name, file_name, id} = this.props
         let chosenImgVar;
         switch(file_name){
