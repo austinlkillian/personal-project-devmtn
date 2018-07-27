@@ -416,7 +416,7 @@ class GameCanvas extends React.Component {
                                 moveChange = 30;
                             } else {
                                 makeChange = -600;
-                                moveChange = 38;
+                                moveChange = 32;
                             }
                             this.showLevelUp();
                             this.levelUp(makeChange, moveChange);
@@ -426,8 +426,8 @@ class GameCanvas extends React.Component {
                             let makeChange;
                             let moveChange;
                             if(window.innerWidth < 700){
-                                makeChange = 395;
-                                moveChange = 105;
+                                makeChange = 390;
+                                moveChange = -70;
                             } else {
                                 makeChange = 805;
                                 moveChange = -70;
