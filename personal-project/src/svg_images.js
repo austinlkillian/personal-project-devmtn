@@ -146,7 +146,7 @@ export function orangeUnicorn (styling, currentWidth, currentHeight) {
 }
 
 export function pinkUnicorn (styling, currentWidth, currentHeight) {
-    return <svg style={styling} width={currentWidth} height={currentHeight} viewBox="0 0 105 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    return <svg className="pink-unicorn" style={styling} width={currentWidth} height={currentHeight} viewBox="0 0 105 120" fill="none" xmlns="http://www.w3.org/2000/svg">
     <mask id="path-1-inside-1" fill="white">
     <path d="M0.932545 35.5879H22.0668C22.0668 35.5879 25.7702 23.8638 23.7536 14.5816C22.1093 7.01343 15.2864 1.59867 14.9355 0.919096C14.5846 0.239522 11.4728 -0.64807 10.6245 0.710151C9.77628 2.06837 2.76774 11.1095 1.40004 14.8528C-1.44923 22.651 0.932545 35.5879 0.932545 35.5879Z"/>
     </mask>
@@ -291,7 +291,7 @@ export function pinkUnicorn (styling, currentWidth, currentHeight) {
 }
 //id="unicornImage" style={styling}
 export function rainbowUnicorn (styling, currentWidth, currentHeight) {
-    return <svg style={styling} width={currentWidth} height={currentHeight} viewBox="0 0 105 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    return <svg className="rainbow-unicorn" style={styling} width={currentWidth} height={currentHeight} viewBox="0 0 105 120" fill="none" xmlns="http://www.w3.org/2000/svg">
     <mask id="path-1-inside-1" fill="white">
     <path d="M0.932545 35.5879H22.0668C22.0668 35.5879 25.7702 23.8638 23.7536 14.5816C22.1093 7.01343 15.2864 1.59867 14.9355 0.919096C14.5846 0.239522 11.4728 -0.64807 10.6245 0.710151C9.77628 2.06837 2.76774 11.1095 1.40004 14.8528C-1.44923 22.651 0.932545 35.5879 0.932545 35.5879Z"/>
     </mask>
@@ -436,7 +436,7 @@ export function rainbowUnicorn (styling, currentWidth, currentHeight) {
 }
 
 export function raspberryUnicorn (styling, currentWidth, currentHeight) {
-    return <svg style={styling} width={currentWidth} height={currentHeight} viewBox="0 0 105 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    return <svg className="raspberry-unicorn" style={styling} width={currentWidth} height={currentHeight} viewBox="0 0 105 120" fill="none" xmlns="http://www.w3.org/2000/svg">
     <mask id="path-1-inside-1" fill="white">
     <path d="M0.932545 35.5879H22.0668C22.0668 35.5879 25.7702 23.8638 23.7536 14.5816C22.1093 7.01343 15.2864 1.59867 14.9355 0.919096C14.5846 0.239522 11.4728 -0.64807 10.6245 0.710151C9.77628 2.06837 2.76774 11.1095 1.40004 14.8528C-1.44923 22.651 0.932545 35.5879 0.932545 35.5879Z"/>
     </mask>

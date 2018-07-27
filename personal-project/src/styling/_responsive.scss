@@ -1,11 +1,25 @@
 @media (max-width: 500px) {
     .container {
         border-radius: 0px;
+        margin: 0 auto;
         margin-top: 0px;
         height: 100%;
+        width: 100%;
     }
     .home-page {
-        max-width: 375px;
+        width: 100%;
+
+        .rainbow-unicorn {
+            display: none;
+        }
+    
+        .pink-unicorn {
+            display: none;
+        }
+    
+        .raspberry-unicorn {
+            display: none;
+        }
 
         .home-play {
             position: static;
@@ -39,6 +53,7 @@
         }
 
         .home-title-text-vs {
+            text-align: center;
             font-size: 25px;
         }
         
@@ -53,7 +68,9 @@
     
     .home-title {
         width: 100%;
-        padding-top: 25%;
+        padding-top: 20%;
+        position: static;
+        margin: 0 auto;
     }
     
     

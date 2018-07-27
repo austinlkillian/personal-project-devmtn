@@ -1,8 +1,15 @@
 .home-page {
-    width: 1000px;
+    width: 100%;
     height: 100vh;
     margin: 0 auto;
     position: relative;
+    .home-container {
+        position: relative;
+        margin: 0 auto;
+        width: 70%;
+        margin-top: 7%;
+        height: 75%;
+    }
     .link {
         color: white;
         background: pink;
@@ -16,15 +23,13 @@
     .home-play {
         border-radius: 50%;
         position: absolute;
-        padding-top: 19px;
-        top: 420px;
-        right: 100px;
+        top: 60%;
+        left: 60%;
         width: 180px;
         height: 180px;
         font-size: 60px;
         font-family: $boring;
-        margin-top: 5px;
-        margin-right: 80px;
+
         
         .link {
             width: 100%;
@@ -43,15 +48,15 @@
 
     .sign-up {
         position: absolute;
-        right: 580px;
-        top: 540px;
+        left: 28%;
+        top: 76%;
 
     }
 
     .login {
         position: absolute;
-        right: 430px;
-        top: 540px;
+        left: 43%;
+        top: 76%;
     }
 
     .home-title-text-unicorn {
@@ -74,6 +79,27 @@
         font-size: 120px;
         text-align: right;
     }
+
+    .rainbow-unicorn {
+        position: absolute;
+        top: 150px;
+        left: -110px;
+        transform: rotate(-15deg);
+    }
+
+    .pink-unicorn {
+        position: absolute;
+        top: -30px;
+        left: 690px;
+        transform: rotate(15deg);
+    }
+
+    .raspberry-unicorn {
+        position: absolute;
+        top: 145px;
+        left: 810px;
+        transform: rotate(-5deg);
+    }
 }
 
 
@@ -81,8 +107,10 @@
 .home-title {
     width: 60%;
     margin: 0 auto;
-    padding-top: 20%;
     margin-bottom: 0px;
+    position: absolute;
+    top: 15%;
+    left: 15%;
 }
 
 
@@ -95,6 +123,6 @@
     line-height: 1.25;
     letter-spacing: 1.25px;
     position: absolute;
-    top: 450px;
-    left: 300px;
+    top: 62%;
+    left: 27%;
 }
