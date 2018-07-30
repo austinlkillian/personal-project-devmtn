@@ -26,6 +26,10 @@
         margin-top: 5px;
     }
 
+    .edit:hover {
+        background: #D13F72;
+    }
+
     .list-unicorn-container {
         display: flex;
         width: 80%;
@@ -70,6 +74,10 @@
                 font-size: 28px;
                 min-height: 100px;
                 margin-top: 20px;
+            }
+
+            .play:hover {
+                background: #D13F72;
             }
     
             .list-unicorn-buttons {

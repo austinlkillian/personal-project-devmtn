@@ -10,6 +10,14 @@ nav {
     background: $lightSea;
     padding-bottom: 40px;
     // box-shadow: 0px 0px 25px 25px $lightSea;
+
+    a:hover {
+        color: $seaGreen;
+    }
+
+    a:active {
+        color: pink;
+    }
 }
 
 .home-link {
@@ -21,7 +29,11 @@ nav {
 }
 
 .fa-home:hover {
-    color: blue;
+    color: $seaGreen;
+}
+
+.fa-home:active {
+    color: pink;
 }
 
 .logout-button {
@@ -35,9 +47,18 @@ nav {
     letter-spacing: 1.3px;
 }
 
+.logout-button:hover {
+    color: $seaGreen;
+}
+
+.logout-button:active {
+    color: pink;
+}
+
 a {
     color: white;
 }
+
 
 .restart-logout-div {
     width: 300px;

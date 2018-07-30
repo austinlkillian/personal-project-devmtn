@@ -36,6 +36,7 @@
 
         .thumbnails {
             display: flex;
+            width: 100%;
         }
 
         .thumbnail {
@@ -47,7 +48,7 @@
         }
 
         .radio {
-            margin: 0px 28px;
+            margin: 0px 30px;
         }
     }
 
@@ -98,7 +99,11 @@
         
     }
 
+    .button:hover {
+        background: #D13F72;
+    }
+
     .button-edit-save {
-        background: #6BBF59;
+        background: pink;
     }
 }

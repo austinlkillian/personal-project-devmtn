@@ -1,6 +1,7 @@
 .home-page {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
     padding: 20px auto;
     position: relative;
     .home-container {
@@ -32,6 +33,7 @@
         height: 180px;
         font-size: 60px;
         font-family: $boring;
+        box-shadow: 1px 4px 0px #097894;
 
         
         .link {
@@ -39,6 +41,13 @@
             height: 100%;
             border-radius: 50%;
         }
+        .link:hover {
+            background: #D13F72;
+        }
+    }
+
+    .home-auth:hover {
+        background: #D13F72;
     }
 
     .home-auth {
@@ -47,6 +56,7 @@
         position: absolute;
         font-size: 25px;
         padding-top: 7px;
+        box-shadow: 1px 4px 0px #097894;
     }
 
     .sign-up {

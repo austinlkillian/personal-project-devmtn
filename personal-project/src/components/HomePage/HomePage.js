@@ -10,6 +10,7 @@ function HomePage(){
         <div className='home-page'>
             <Particles style={{
                 width: '100%',
+                minHeight: '100vh',
                 height: "100%",
                 position: "absolute"
               }}

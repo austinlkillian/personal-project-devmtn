@@ -60,7 +60,7 @@ class Nav extends Component {
             home = <div className="home-link">
                     <Link to="/"><i className="fas fa-home fa-lg"></i></Link>
                 </div>
-            if(this.props.currentUnicorn.id){
+            if(this.props.currentUnicorn){
                 logout = <div className="logout-button">
                             <button className="nav-logout" onClick={this.logout}>Logout</button>
                     </div>

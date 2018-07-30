@@ -196,12 +196,14 @@
 
     //Styling for create and edit unicorn pages
     .format-unicorn {
+        width: 100%;
         .title {
             font-size: 50px;
             margin-top: 25px;
         }
 
         .content-main {
+            width: 100%;
             flex-direction: column;
             margin-top: 15px;
             align-items: center;
@@ -218,7 +220,7 @@
 
         .image-choices {
             .radio {
-                margin: 0px 28px;
+                margin: 0px 29px;
             }
         }
     }
